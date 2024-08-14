@@ -1,3 +1,6 @@
+import math
+
+
 class Pipeline:
     def __init__(self, pipe_diameter, wall, description=None, pipe_lenght=0):
         self.description = description

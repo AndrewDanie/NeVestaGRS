@@ -392,10 +392,11 @@ def veloсity_calc():
         name_grs = combo.get()
         connection = sqlite3.connect('grs_database.db')
         cur = connection.cursor()
-        cur.execute(f"""SELECT pipe_diameter, wall FROM tvps
-        WHERE block_id = (SELECT block_id FROM blocks WHERE grs_id = (SELECT grs_id FROM grs 
-        WHERE name_grs  = '{format(combo.get())}')
-        """)
+        print(name_grs)
+        cur.execute(f"""SELECT pipe_diameter, wall FROM tvps WHERE block_id = 
+                        (SELECT block_id FROM blocks WHERE grs_id = 
+                        (SELECT grs_id FROM grs WHERE name_grs  = '{format(combo.get())}'))"""
+                    )
 
         print(f'начинаю расчёт ТВПС ГРС {name_grs}')
         gas_velocity = []
@@ -424,7 +425,7 @@ def veloсity_calc():
     for i in range(len(interface_buttons)):
         btn = Button(velocity_root, text=interface_buttons[i], font=("Arial Bold", 10), bg="green", fg="black",
                      command=calc_list[i])
-        btn.grid(column=800, row=400 + i * 100)
+        btn.grid(column=800, row=400 + i * 10)
 
     velocity_root.mainloop()
     return
@@ -498,7 +499,7 @@ def odorant_calc():
     for i in range(len(interface_buttons)):
         btn = Button(odorant_root, text=interface_buttons[i], font=("Arial Bold", 10), bg="green", fg="black",
                      command=calc_list[i])
-        btn.grid(column=800, row=400 + i * 100)  # добавляет кнопки интерфейса
+        btn.grid(column=800, row=400 + i * 10)  # добавляет кнопки интерфейса
 
     return
 
@@ -523,8 +524,6 @@ def valve_calc():
             txt[1].get()) + ' МПа.docx'
 
         mydoc.save(file_name)
-
-
 
     def shift():
         if btn1.cget('text') == 'Расчёт Kv':

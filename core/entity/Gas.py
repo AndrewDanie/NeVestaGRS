@@ -1,3 +1,6 @@
+import CoolProp.CoolProp as CP
+
+
 class Gas:
     def __init__(self, composition, temperature, pressure, rate=0):
         self.composition = composition

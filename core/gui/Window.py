@@ -2,14 +2,22 @@ from tkinter import *
 from tkinter import ttk
 from tkinter.scrolledtext import ScrolledText
 import guidata.texts as TEXT
+from core.gui.InputEntity import InputEntity
 
 
-class Window:
+class Window(InputEntity):
 
     def __init__(self, title, size='800x600'):
+        super().__init__()
         self.root = Tk()
         self.title = self.root.title(title)
         self.geometry = self.root.geometry(size)
+
+    def get_type(self):
+        return 'GUI'
+
+    def get_input_value(self, input_name):
+        return self._inputs[input_name].get()
 
     def mainloop(self):
         self.root.mainloop()
@@ -22,7 +30,6 @@ class Window:
         Label(self.root, text=label, font=('Arial Bold', 18)).pack(pady=15)
         Button(self.root, text='Главное меню', font=("Arial Bold", 10), command=self.load_window_menu)\
             .place(anchor=NE, relx=1, x=-15, y=15)
-
 
         left_frame = ttk.Frame(borderwidth=1, relief=SOLID, padding=[8, 10])
         left_frame.place(relheight=1, relwidth=0.7, rely=0.1)
@@ -227,4 +234,3 @@ class Window:
             frame.grid(row=i//2, column=i%2)
             Button(frame, text=label, font=("Arial Bold", 10), width=30, command=button_labels[label]).pack()
             i += 1
-
