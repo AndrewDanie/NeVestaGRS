@@ -60,23 +60,23 @@ class Gas:
         self.pressure = pressure * 1e6 + 101325
         return CP.PropsSI('H', 'T', self.temperature, 'P', self.pressure, self.mixture)
 
-    def rate(self, temperature: float, pressure: float, rate, parameter='standard') -> float:
-        """Метод возвращает расход в зависимости от заданного параметра, по умолчанию стандартный расход
+    def rate(self, temperature: float, pressure: float, rate: float, parameter='standard') -> float:
+        """Метод возвращает расход в зависимости от заданного параметра, по умолчанию стандартный расход,
         также может принимать значения:
             mass - массовый расход, кг/ч
             standard - расход при стандартных условиях, м3/ч
             normal - расход при нормальных условиях, м3/ч
             actual - расход при рабочих условиях, м3/ч"""
-        self.temperature = temperature + 273.15
-        self.pressure = pressure * 1e6 + 101325
-        self.mass_rate = rate * self.standard_density()
-        self.standard_rate = rate
-        self.normal_rate = self.mass_rate / self.normal_density()
-        self.actual_rate = self.mass_rate / self.actual_density(temperature, pressure)
-        rate = {'mass': self.mass_rate,
-                'standard': self.standard_rate,
-                'normal': self.normal_rate,
-                'actual': self.actual_rate}
+        temperature = temperature + 273.15
+        pressure = pressure * 1e6 + 101325
+        mass_rate = rate * self.standard_density()
+        standard_rate = rate
+        normal_rate = mass_rate / self.normal_density()
+        actual_rate = mass_rate / self.actual_density(temperature, pressure)
+        rate = {'mass': mass_rate,
+                'standard': standard_rate,
+                'normal': normal_rate,
+                'actual': actual_rate}
         return rate[parameter]
 
     def component_specific_heat(self, temperature: float, pressure: float) -> dict:

@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f607f56e-4ff3-4da4-83f7-2cd0ed8438d4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/NeVestaGRS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/NeVestaGRS.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/entity/Gas.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/entity/Gas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/functions/PhysicFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/functions/PhysicFunctions.py" afterDir="false" />
@@ -25,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -38,8 +37,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
-    "url": "https://github.com/AndrewDanie/NeVestaGRS.git",
-    "accountId": "ed38cc08-3701-4c6e-998c-82fb90dedef4"
+    "url": "https://github.com/AndrewDanie/NeVestaGRS",
+    "accountId": "b9e75ed6-8648-4377-a7d5-ab1092146816"
   },
   "recentNewPullRequestHead": {
     "server": {
@@ -68,9 +67,9 @@
     "Python.grs_interface.executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "#1 on refactor",
+    "git-widget-placeholder": "refactor",
     "last_opened_file_path": "C:/Users/Идель/PycharmProjects/NeVestaGRS",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -211,5 +210,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/core/functions/PhysicFunctions.py</url>
+          <line>4</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
