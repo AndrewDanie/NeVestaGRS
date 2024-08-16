@@ -16,6 +16,18 @@ def run_calc(function, **kwargs):
     else:
         return function(**kwargs)
 
+def velocity_calc(composition: dict, temperature: float, pressure: float, diameter: int, wall: int,  fluid_pack: str = 'PR') -> float:
+    """Функция возвращает реальную скорость газа в трубопроводе
+    функция принимает в себя состав для формирования:
+    состав смеси,
+    температуру,
+    давление,
+    диаметр трубы,
+    толщину стенки трубы,
+    термодинамический пакет (по умолчанию используется уравнение состояния Пенга-Робинсона)"""
+    gas = Gas(composition, fluid_pack)
+    pipe = Pipeline(diameter, wall)
+    return gas.actual_rate(temperature, pressure) / pipe.area
 
 def calc_pipe_velocity(composition, temperature, pressure, internal_diameter, rate):
     """Рассчитывает скорость газа в трубопроводе"""
@@ -26,7 +38,6 @@ def calc_pipe_velocity(composition, temperature, pressure, internal_diameter, ra
     capacity = round(25 * rate / velocity)
 
     return capacity, velocity
-
 
 def calc_gas_density(composition, temperature, pressure, rate):
     """Рассчитывает плотность газа при рабочих, нормальных, стандартных условиях, актуальный расход газа"""
@@ -40,7 +51,6 @@ def calc_gas_density(composition, temperature, pressure, rate):
         round(gas.molecular_mass, 2),
     )
 
-
 def calc_pipe_diameter(composition, temperature, pressure, rate):
     """Рассчитывает требуемый диаметр трубопровода, чтобы скорость была в порядке"""
     velosity_limit = 25
@@ -51,14 +61,12 @@ def calc_pipe_diameter(composition, temperature, pressure, rate):
 
     return round(internal_diameter, 2)
 
-
 """Плохая функция"""
 def calc_odorant_reserve(volume, rate):
     """Рассчитывает запас одоранта"""
 
     odorant_vessel = Vessel(0, 0, volume)
     return odorant_vessel
-
 
 def calc_request_odorant_reserve(rate):
     """Рассчитывает необходимый запас одоранта"""
