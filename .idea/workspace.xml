@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f607f56e-4ff3-4da4-83f7-2cd0ed8438d4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/core/entity/Gas.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/entity/Pipeline.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/entity/Valve.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/entity/Vessel.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/grs_main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/gui/Window.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/guidata/constants.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/guidata/texts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/grs_stat.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/grs_stat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/NeVestaGRS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/NeVestaGRS.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/entity/Gas.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/entity/Gas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/functions/PhysicFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/functions/PhysicFunctions.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,21 +30,31 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "AndrewDanie"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;AndrewDanie&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/AndrewDanie/NeVestaGRS.git",
-    "accountId": "93b201df-9116-47dd-9b3e-946dae08ae50"
+    "accountId": "ed38cc08-3701-4c6e-998c-82fb90dedef4"
+  },
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
+    },
+    "owner": "AndrewDanie",
+    "repository": "NeVestaGRS"
   }
 }]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2kbS5lXM97mLkVvePb8v6kD8Jp5" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -59,11 +63,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.PhysicFunctions.executor": "Run",
     "Python.Window.executor": "Run",
     "Python.grs_interface.executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "refactor"
+    "git-widget-placeholder": "#1 on refactor",
+    "last_opened_file_path": "C:/Users/Идель/PycharmProjects/NeVestaGRS",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -73,6 +80,28 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
+    <configuration name="PhysicFunctions" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="NeVestaGRS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/functions" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/functions/PhysicFunctions.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Window" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="NeVestaGRS" />
       <option name="ENV_FILES" value="" />
@@ -139,11 +168,18 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.grs_interface" />
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.PhysicFunctions" />
+      <item itemvalue="Python.Window" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.Window" />
+        <item itemvalue="Python.PhysicFunctions" />
         <item itemvalue="Python.grs_interface" />
+        <item itemvalue="Python.Window" />
       </list>
     </recent_temporary>
   </component>
