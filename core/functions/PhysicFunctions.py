@@ -29,6 +29,44 @@ def velocity_calc(composition: dict, temperature: float, pressure: float, diamet
     pipe = Pipeline(diameter, wall)
     return gas.actual_rate(temperature, pressure) / pipe.area
 
+def odorant_reserve_calc(rate: float, volume: float) -> float:
+    """Расчёт количество дней, на которое хватит одоранта в емкости с учётом ограничения наполнения 80%
+    плотность одоранта 830 кг/м3"""
+    mass_per_thousand_cubic_meters = 0.016 # кг одоранта на 1000 м3
+    odorant_density = 830 # кг/м3 - плотность одоранта
+    return volume * odorant_density * 0.8 * 1000 / rate / mass_per_thousand_cubic_meters / 24
+
+def odorant_reserve_verdict(rate: float, volume:float) -> bool:
+    """Функция принимает расход и объём ёмкости одоранта и выдает false или true в зависимости от результата"""
+    if odorant_reserve_calc(rate, volume) >= 60:
+        return True
+    else:
+        return False
+
+def odorant_volume_request(rate: float) -> float:
+    """Функция принимает в себя расход газа в стандартных метрах кубических
+    и возвращает требуемый объём ёмкости одоранта, с учётом, что по нормативу
+    запаса одоранта должно хватать на 60 дней, заполнение ёмкости должно быть
+    максимум 80%, плотность одоранта 830 кг/м3"""
+    return 60 * 24 * 0.016 * rate / 1000 / 830 / 0.8
+
+def valve_capacity_calc(composition, Kv, inlet_pressure, outlet_pressure, temperature):
+    """Функция принимает в себя:
+    composition - состав газа, чтобы определить плотность газа
+    https://dpva.ru/Guide/GuideEquipment/Valves/ControlValvesChoosingDPVA/?ysclid=lzwoz0zt3y667024699
+     Kv клапана (это может быть как с рук, так и с БД)
+     inlet_pressure - давление до клапана
+     outlet_pressure - давление после клапана
+     temperature - температура газа на входе в регулятор"""
+    gas = Gas(composition)
+    p1 = (inlet_pressure + 0.101325) * 1e6 / 98100
+    p2 = (outlet_pressure + 0.101325) * 1e6 / 98100
+    delta_pressure = p1 - p2
+    if delta_pressure < p1 / 2:
+        pass #dont finished yet
+    gas.normal_density()
+
+
 def calc_pipe_velocity(composition, temperature, pressure, internal_diameter, rate):
     """Рассчитывает скорость газа в трубопроводе"""
 
