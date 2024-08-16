@@ -1,0 +1,4 @@
+BG_COLOR = 'green'
+FONT_COLOR = 'black'
+DEFAULT_FONT = 'Arial'
+DEFAULT_FONT_SIZE = 10
