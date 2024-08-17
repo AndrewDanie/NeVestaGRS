@@ -9,7 +9,7 @@ from core.model.entity.Pipeline import Pipeline
 import core.model.functions.constants as CONST
 
 
-def velocity_calc(composition: dict, temperature: float, pressure: float, rate: float, diameter: int, wall: int,  fluid_pack: str = 'PR') -> float:
+def calc_pipe_velocity(composition: dict, temperature: float, pressure: float, rate: float, diameter: int, wall: int, fluid_pack: str = 'PR'):
     """Функция возвращает реальную скорость газа в трубопроводе
     функция принимает в себя состав для формирования:
     состав смеси,
@@ -22,10 +22,20 @@ def velocity_calc(composition: dict, temperature: float, pressure: float, rate: 
     gas = Gas(composition, fluid_pack)
     pipe = Pipeline(diameter, wall)
     velocity = gas.get_rate(temperature, pressure, rate, parameter='actual') / pipe.area / 3600
-    return velocity
+    return {
+        'pipe_velocity': velocity
+    }
 
+def calc_gas_density(composition: dict, fluid_pack: str = 'PR'):
+    gas = Gas(composition, fluid_pack)
+    result = {
+        'normal_density': gas.get_normal_density(),
+        'standard_density': gas.get_standard_density()
+    }
 
-def calc_pipe_diameter(composition: dict, temperature: float, pressure: float, rate: float, fluid_pack: str = 'PR') -> float:
+    return result
+
+def calc_pipe_diameter(composition: dict, temperature: float, pressure: float, rate: float, fluid_pack: str = 'PR') :
     gas = Gas(composition, fluid_pack)
     return (gas.get_rate(temperature, pressure, rate, parameter='actual') / 25 * 4 / math.pi) ** 0.5 # 25 метров в секунду - слишком тупо цифрами писать
 

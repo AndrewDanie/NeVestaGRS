@@ -70,10 +70,10 @@ class Gas:
             standard - расход при стандартных условиях, м3/ч
             normal - расход при нормальных условиях, м3/ч
             actual - расход при рабочих условиях, м3/ч"""
-        mass_rate = rate * self.standard_density()
+        mass_rate = rate * self.get_standard_density()
         standard_rate = rate
-        normal_rate = mass_rate / self.normal_density()
-        actual_rate = mass_rate / self.actual_density(temperature, pressure)
+        normal_rate = mass_rate / self.get_normal_density()
+        actual_rate = mass_rate / self.get_actual_density(temperature, pressure)
         rate = {'mass': mass_rate,
                 'standard': standard_rate,
                 'normal': normal_rate,
@@ -94,7 +94,7 @@ class Gas:
 
     def heat_stream(self, temperature: float, pressure: float) -> float:
         """Метод возвращает тепловой поток смеси"""
-        return self.rate(temperature, pressure, parameter='mass') * self.specific_heat(temperature, pressure)
+        return self.get_rate(temperature, pressure, parameter='mass') * self.get_specific_heat(temperature, pressure)
 
     def viscosity(self, temperature: float, pressure: float) -> float:
         """Метод возвращает вязкость смеси при заданных температуре и давлении"""
@@ -104,5 +104,4 @@ class Gas:
             self.viscosity = CP.PropsSI('V', 'T', self.temperature, 'P', self.pressure, self.mixture)
         except ValueError as e:
             print(e)
-            return
         return self.viscosity

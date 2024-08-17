@@ -1,8 +1,7 @@
 from tkinter import ttk
 from tkinter import *
 
-from core.controller.MainMenuController import MainMenuController
-from core.controller.PipeVelocityController import PipeVelocityController
+
 from core.view.Window import Window
 
 
@@ -10,30 +9,7 @@ class GRSWindow(Window):
 
     def load_window_velocity_calc(self):
         # Расчет скорости в трубопроводах
-
-        self.clear_window()
-
-        input_labels = [
-            'Давление, МПа',
-            'Температура, °С',
-            'Расход',
-            'Внешний диаметр, мм',
-            'Толщина стенки, мм'
-        ]
-
-        left_frame, right_frame = self.make_default_frames('Расчет скорости в трубопроводах')
-
-        self.add_output_block(left_frame)
-        controller = PipeVelocityController(self)
-        self.add_combobox(right_frame, 'Доступные ГРС', [1, 2, 3])
-        self.add_input_block(right_frame, input_labels)
-        self.add_empty_space(right_frame, 30, pack_side=BOTTOM)
-        button_data = {
-            'Подбор диаметра': None,
-            'Плотность газа': controller.calc_gas_density,
-            'Скорость газа': controller.calc_pipe_velocity,
-        }
-        self.add_buttons_block(right_frame, button_data, pack_side=BOTTOM)
+        self.build_default_gui('Расчет скорости в трубопроводах')
 
     def load_window_odorant_calc(self):
         # Ёмкость одоранта

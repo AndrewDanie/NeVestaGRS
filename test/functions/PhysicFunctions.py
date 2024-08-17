@@ -16,6 +16,6 @@ def test_velocity_calc():
     wall = 10
 
     expected_answer = 1807585.092213786
-    answer = velocity_calc(composition=composition, temperature=temperature, pressure=pressure, rate=rate, diameter=diameter, wall=wall)
+    answer = calc_pipe_velocity(composition=composition, temperature=temperature, pressure=pressure, rate=rate, diameter=diameter, wall=wall)
     print(answer)
     assert abs(answer - expected_answer) < EPS

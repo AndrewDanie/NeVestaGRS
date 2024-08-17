@@ -1,6 +1,8 @@
 """
     Различные вспомогательные фукнции
 """
+from core.model.functions import PhysicFunctions
+
 
 def get_validated_int(string_input):
     """Валидирует строку и возвращает целочисленное значение"""
@@ -19,9 +21,10 @@ def get_validated_float(string_input : str):
         raise Exception('Неверный формат десятичной дроби!')
 
 
-def run_func(function, **kwargs):
+def run_func(function_name, **kwargs):
     """Запуск любой функции с соответствующими ей аргументами"""
     if None in kwargs.values():
         raise Exception('Не хватает аргументов!')
     else:
-        return function(**kwargs)
+        return getattr(PhysicFunctions, function_name)(**kwargs)
+

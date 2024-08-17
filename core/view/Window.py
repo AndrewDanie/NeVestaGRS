@@ -1,17 +1,25 @@
+from gc import callbacks
 from tkinter import *
 from tkinter import ttk
 from tkinter.scrolledtext import ScrolledText
 
+from core.view.window_props import windows
+
 
 class Window:
 
-    def __init__(self, title, size='800x600'):
+    def __init__(self, title, size='800x600', ):
         super().__init__()
         self.root = Tk()
         self.title = self.root.title(title)
         self.geometry = self.root.geometry(size)
         self.interactive_widgets = None
         self.clear_interactive_widgets()
+        self.controller = None
+
+    def bind_controller(self, controller):
+        self.controller = controller
+        controller.bind_window(self)
 
     def mainloop(self):
         self.root.mainloop()
@@ -55,10 +63,13 @@ class Window:
             self.interactive_widgets['inputs'][label] = entry
 
     def add_buttons_block(self, master_widget, button_data, pack_side=TOP):
+        print(button_data)
         for key in button_data:
             frame = ttk.Frame(master_widget, borderwidth=1, padding=[4, 5])
             frame.pack(fill=X, side=pack_side)
-            Button(frame, text=key, font=("Arial Bold", 10), command=button_data[key]).pack(side=LEFT)
+            callback = lambda x: self.controller.run(x)
+            print(key, button_data[key], callback)
+            Button(frame, text=key, font=("Arial Bold", 10), command=lambda: self.controller.run(button_data[key])).pack(side=LEFT)
 
     def add_combobox(self, master_widget, label, values, pack_side=TOP):
         frame = ttk.Frame(master_widget, borderwidth=1, padding=[8, 10])
@@ -70,6 +81,28 @@ class Window:
         combo.pack(side=LEFT)
         self.interactive_widgets['inputs'][label] = combo
 
-    def add_empty_space(self, master_widget, amount, pack_side=TOP):
+    def add_empty_space(self, master_widget, amount=30, pack_side=TOP):
         Label(master_widget, text="", font=('Arial Bold', 10)).pack(pady=amount, side=pack_side)
 
+    def build_default_gui(self, window_name):
+        self.clear_window()
+        if window_name not in windows:
+            raise Exception(f'Нет окна с названием {window_name}')
+        window_data = windows[window_name]
+
+        if window_data['default_gui']:
+            left_frame, right_frame = self.make_default_frames(window_name)
+
+            if window_data['left_frame'] and 'output_block' in window_data['left_frame']:
+                self.add_output_block(left_frame)
+            if window_data['right_frame']:
+                r_frame_data = window_data['right_frame']
+                if 'combobox' in r_frame_data:
+                    self.add_combobox(right_frame, r_frame_data['combobox'], [1, 2, 3])
+                if 'input_labels' in r_frame_data:
+                    self.add_input_block(right_frame, r_frame_data['input_labels'])
+                self.add_empty_space(right_frame, pack_side=BOTTOM)
+                if 'buttons' in r_frame_data:
+                    self.add_buttons_block(right_frame, r_frame_data['buttons'],pack_side=BOTTOM)
+
+        self.controller.bind_widgets()
