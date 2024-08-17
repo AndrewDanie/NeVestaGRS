@@ -17,3 +17,11 @@ def get_validated_float(string_input : str):
         return int(string_input)
     except:
         raise Exception('Неверный формат десятичной дроби!')
+
+
+def run_func(function, **kwargs):
+    """Запуск любой функции с соответствующими ей аргументами"""
+    if None in kwargs.values():
+        raise Exception('Не хватает аргументов!')
+    else:
+        return function(**kwargs)

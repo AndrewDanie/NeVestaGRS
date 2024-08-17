@@ -6,9 +6,8 @@ from tkinter import *
 from tkinter import scrolledtext
 from tkinter.ttk import Combobox
 import random
-import CoolProp.CoolProp as CP
 
-from core.entity.Gas import Gas
+from core.model.entity.Gas import Gas
 
 design_pressure = 5.39
 start_pressure = 1.5

@@ -9,13 +9,12 @@ import tkinter.ttk as ttk
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import CoolProp.CoolProp as CP
 import docx
 
 import grs_stat
-from core.entity.Gas import Gas
-from core.entity.Pipeline import Pipeline
-from core.entity.Vessel import Vessel
+from core.model.entity.Gas import Gas
+from core.model.entity.Pipeline import Pipeline
+from core.model.entity.Vessel import Vessel
 
 component_list = ['Methane', 'Ethane', 'Propane', 'Isobutane', 'Butane',
                  'Isopentane', 'Pentane', 'Hexane', 'Oxygen',
