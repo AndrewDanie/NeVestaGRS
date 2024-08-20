@@ -3,22 +3,28 @@
 """
 
 import math
+from typing import Dict, Any
 
 from core.model.entity.Gas import Gas
 from core.model.entity.Pipeline import Pipeline
 import core.model.functions.constants as CONST
 
 
-def calc_pipe_velocity(composition: dict, temperature: float, pressure: float, rate: float, diameter: int, wall: int, fluid_pack: str = 'PR'):
-    """Функция возвращает реальную скорость газа в трубопроводе
-    функция принимает в себя состав для формирования:
-    состав смеси,
-    температуру,
-    расход, ст. м3/ч,
-    давление,
-    диаметр трубы,
-    толщину стенки трубы,
-    термодинамический пакет (по умолчанию используется уравнение состояния Пенга-Робинсона)"""
+def calc_pipe_velocity(composition: dict, temperature: float,
+                       pressure: float, rate: float, diameter: float,
+                       wall: float, fluid_pack: str = 'PR'):
+    """
+    This function calculates the velocity of fluid in pipe.
+
+    :param composition: per component molar composition of fluid;
+    :param temperature: temperature of fluid, °C;
+    :param pressure: fluid pressure over atmospheric, MPa;
+    :param rate: fluid volume rate in standard cubic meters per hour;
+    :param diameter: external diameter of pipe, mm;
+    :param wall: pipeshell thickness, mm;
+    :param fluid_pack: fluid thermodynamic pack:
+    :return velocity (float): the velocity of fluid in pipe
+    """
     gas = Gas(composition, fluid_pack)
     pipe = Pipeline(diameter, wall)
     velocity = gas.get_rate(temperature, pressure, rate, parameter='actual') / pipe.area / 3600
@@ -27,52 +33,97 @@ def calc_pipe_velocity(composition: dict, temperature: float, pressure: float, r
     }
 
 def calc_gas_density(composition: dict, fluid_pack: str = 'PR'):
+    """
+    This function calculates the density of fluid for normal and standard conditions
+
+    :param composition: per component molar composition of fluid;
+    :param fluid_pack: fluid thermodynamic pack:
+    :return normal_density, standard_density (float): densities for normal and standard conditions
+    """
     gas = Gas(composition, fluid_pack)
     result = {
         'normal_density': gas.get_normal_density(),
         'standard_density': gas.get_standard_density()
     }
-
     return result
 
 def calc_pipe_diameter(composition: dict, temperature: float, pressure: float, rate: float, fluid_pack: str = 'PR') :
+    """
+    This function calculates minimal requests diameter of pipe for current volume rate of fluid for velocity=25 mps
+
+    :param composition: per component molar composition of fluid;
+    :param temperature: temperature of fluid, °C;
+    :param pressure: fluid pressure over atmospheric, MPa;
+    :param rate: fluid volume rate in standard cubic meters per hour;
+    :param fluid_pack: fluid thermodynamic pack:
+    :return minimal_diameter (float): minimal requests pipeshell diameter
+    """
     gas = Gas(composition, fluid_pack)
-    return (gas.get_rate(temperature, pressure, rate, parameter='actual') / 25 * 4 / math.pi) ** 0.5 # 25 метров в секунду - слишком тупо цифрами писать
+    minimal_diameter = 1000 * (gas.get_rate(temperature, pressure, rate, parameter='actual') / 3600 / 25 * 4 / math.pi) ** 0.5
+    return  {
+        'minimal_diameter': minimal_diameter
+    }
 
 
-def odorant_reserve_calc(rate: float, volume: float) -> float:
-    """Расчёт количество дней, на которое хватит одоранта в емкости с учётом ограничения наполнения 80%
-    плотность одоранта 830 кг/м3"""
+def odorant_reserve_calc(rate: float, volume: float) -> dict[str, float]:
+    """
+    This function calculates numbers of days for maximal rate of gas to odorate gas
+
+    :param rate: fluid volume rate in standard cubic meters per hour;
+    :param volume: volume of odorant vessel
+    :return odorant_reserve (float): numbers of days for maximal rate of gas to odorate gas
+    """
     mass_per_thousand_cubic_meters = 0.016 # кг одоранта на 1000 м3
     odorant_density = 830 # кг/м3 - плотность одоранта
-    return volume * odorant_density * 0.8 * 1000 / rate / mass_per_thousand_cubic_meters / 24
+    reserve = volume * odorant_density * 0.85 * 1000 / rate / mass_per_thousand_cubic_meters / 24
+    return {
+        'odorant_reserve': reserve
+    }
 
 
 def odorant_reserve_verdict(rate: float, volume:float) -> bool:
-    """Функция принимает расход и объём ёмкости одоранта и выдает false или true в зависимости от результата"""
-    if odorant_reserve_calc(rate, volume) >= 60:
+    """
+    This function return final verdict for odorant vessel
+    :param rate: fluid volume rate in standard cubic meters per hour;
+    :param volume: volume of odorant vessel
+    :return (bool):
+    """
+    if odorant_reserve_calc(rate, volume)['odorant_reserve'] >= 60:
         return True
     else:
         return False
 
 
-def odorant_volume_request(rate: float) -> float:
-    """Функция принимает в себя расход газа в стандартных метрах кубических
-    и возвращает требуемый объём ёмкости одоранта, с учётом, что по нормативу
-    запаса одоранта должно хватать на 60 дней, заполнение ёмкости должно быть
-    максимум 80%, плотность одоранта 830 кг/м3"""
-    return 60 * 24 * 0.016 * rate / 1000 / 830 / 0.8
+def odorant_volume_request(rate: float) -> dict[str, float]:
+    """
+    This function calculates requested odorant volume
+    :param rate: fluid volume rate in standard cubic meters per hour;
+    60 - number of days
+    24 - hours in day
+    0.016 - odorant mass rate per thousand cubic meters of gas СТО Газпром 2-3.5-051-2006, пункт 9.7.6
+    830 - odorant density
+    0.85 - 85% retard of odorant vessel
+    :return:
+    """
+    odorant_request = 60 * 24 * 0.016 * rate / 1000 / 830 / 0.85
+    return {
+        'odorant_request': odorant_request
+    }
 
 
-def valve_capacity_calc(composition: dict, kv: int, inlet_pressure: float, outlet_pressure: float, temperature: float, fluid_pack = 'PR') -> float:
-    """Пропускная способность клапанов
-    Функция принимает в себя:
-    composition - состав газа, чтобы определить плотность газа
-    https://dpva.ru/Guide/GuideEquipment/Valves/ControlValvesChoosingDPVA/?ysclid=lzwoz0zt3y667024699
-        Kv клапана (это может быть как с рук, так и с БД)
-        inlet_pressure - давление до клапана
-        outlet_pressure - давление после клапана
-        temperature - температура газа на входе в регулятор"""
+def valve_capacity_calc(composition: dict, kv: int, inlet_pressure: float, outlet_pressure: float, temperature: float, fluid_pack = 'PR') -> \
+dict[str, float | Any]:
+    """
+    This function calculates capacity of valve by this fashion:
+        https://dpva.ru/Guide/GuideEquipment/Valves/ControlValvesChoosingDPVA/?ysclid=lzwoz0zt3y667024699
+    :param composition: per component molar composition of fluid;
+    :param kv: volume of liquid of density 1000 with pressure drop 1 bar
+    :param inlet_pressure: pressure before valve
+    :param outlet_pressure: pressure after valve
+    :param temperature: temperature of fluid, °C;
+    :param fluid_pack: fluid thermodynamic pack:
+    :return rate (float):
+    """
     gas = Gas(composition, fluid_pack)
     temperature += CONST.CELSIUS_TO_KELVIN_SHIFT
     inlet_pressure = (inlet_pressure + CONST.PASCAL_TO_ATM / 1e6) * 1e6 / 98100
@@ -84,23 +135,35 @@ def valve_capacity_calc(composition: dict, kv: int, inlet_pressure: float, outle
     else:
         mass_rate = 265 * inlet_pressure * kv * (gas_density / temperature) ** 0.5
     standard_rate = mass_rate / gas.get_standard_density()
-    return standard_rate
+    return {
+        'valve_rate': standard_rate
+    }
 
 
-def valve_kv_calc(composition: dict, rate: float, inlet_pressure: float, outlet_pressure: float, temperature: float, fluid_pack='PR') -> float:
-    """Функция принимает в себя состав, расход в стандартных метрах кубических в час,
-    давления на входе и выходе из регулятора в МПа (изб.),
-    температуру газа на входе в регулятор.
-    Возвращает требуемый для такой пропускной способности Kv без учёта запаса
-    рекомендуемый запас по регуляторам - 20-50%"""
+def valve_kv_calc(composition: dict, rate: float, inlet_pressure: float, outlet_pressure: float, temperature: float, fluid_pack='PR') -> \
+dict[str, float | Any]:
+    """
+    This function calculates requests kv for gas rate
+    :param composition: per component molar composition of fluid;
+    :param rate: fluid volume rate in standard cubic meters per hour;
+    :param inlet_pressure: pressure before valve
+    :param outlet_pressure: pressure after valve
+    :param fluid_pack: fluid thermodynamic pack:
+    :return kv (float): volume of liquid of density 1000 with pressure drop 1 bar
+    """
     gas = Gas(composition, fluid_pack)
     temperature += CONST.CELSIUS_TO_KELVIN_SHIFT
     inlet_pressure = (inlet_pressure + CONST.PASCAL_TO_ATM / 1e6) * 1e6 / 98100
     outlet_pressure = (outlet_pressure + CONST.PASCAL_TO_ATM / 1e6) * 1e6 / 98100
     gas_density = gas.get_normal_density()
+    mass_rate = rate * gas.get_standard_density()
     delta_pressure = inlet_pressure - outlet_pressure
+
     if delta_pressure < inlet_pressure / 2:
-        kv = rate * gas.get_standard_density() * temperature / 529 / (delta_pressure * outlet_pressure * gas_density * temperature) ** 0.5
+        kv = mass_rate * temperature / 529 / (delta_pressure * outlet_pressure
+                                                                      * gas_density * temperature) ** 0.5
     else:
-        kv = rate * gas.get_standard_density() / 265 / inlet_pressure / (gas_density / temperature) ** 0.5
-    return kv
+        kv = mass_rate / 265 / inlet_pressure * (temperature / gas_density) ** 0.5
+    return {
+        'kv': kv
+    }

@@ -3,7 +3,8 @@ import core.model.functions.constants as CONST
 
 
 class Gas:
-    """Класс Газ принимает в себя покомпонентный углеводородный состав,
+    """
+    Класс Газ принимает в себя покомпонентный углеводородный состав,
     наименование термодинамического пакета для расчёта, одного из трех:
         '' - по умолчанию будет выбран PR - уравнение состояния Пенга-Робинсона
         SRK - уравнение состояния Соава-Редлиха-Квонга
@@ -11,13 +12,15 @@ class Gas:
     При этом при первичной инициализации фактически рассчитываются самые элементарные параметры:
         состав газа в виде словарей:
             mole_composition:
-                    key - углеводород
-                    value - мольная доля
+                key - углеводород
+                value - мольная доля
             mass_composition:
                 key - углеводород
-                value - массовая доля"""
+                value - массовая доля
+        молярная масса смеси - float
+    """
 
-    def __init__(self, composition: dict, fluid_pack: str=''):
+    def __init__(self, composition: dict, fluid_pack: str='PR'):
         self.mole_composition = composition # состав в мольных долях компонентов
         fluid_pack_list = ['PR', 'SRK', 'HEOS']
         if fluid_pack in fluid_pack_list:
@@ -29,14 +32,16 @@ class Gas:
                                  for key in composition.keys()} # состав в массовых долях компонентов
 
     def input_temperature_pressure(self, temperature: float, pressure: float) -> tuple:
-        """Метод создаёт два новых атрибута класса - температура и давление
-        на входе:
-            температура в °С,
-            давление в МПа (изб.)
-        на выходе:
-            температура в К
-            давление в Па (абс.)
-            пока не знаю, надо ли это"""
+        """
+        Метод создаёт два новых атрибута класса - температура и давление
+            на входе:
+                температура в °С,
+                давление в МПа (изб.)
+            на выходе:
+                температура в К
+                давление в Па (абс.)
+                пока не знаю, надо ли это
+        """
         self.temperature = temperature + CONST.CELSIUS_TO_KELVIN_SHIFT
         self.pressure = pressure * 1e6 + CONST.PASCAL_TO_ATM
         return self.temperature, self.pressure
@@ -50,9 +55,11 @@ class Gas:
         return CP.PropsSI('D', 'T', CONST.CELSIUS_TO_KELVIN_SHIFT, 'P', CONST.PASCAL_TO_ATM, self.mixture)
 
     def get_actual_density(self, temperature: float, pressure: float) -> float:
-        """Метод принимает температуру в °С, давление в избыточных, то есть свыше атмосферного,
+        """
+        Метод принимает температуру в °С, давление в избыточных, то есть свыше атмосферного,
         МПа (это надо будет потом пофиксить, должна быть
-        вариативность единиц измерения), возвращает плотность смеси при заданных условиях"""
+        вариативность единиц измерения), возвращает плотность смеси при заданных условиях
+        """
         self.temperature = temperature + CONST.CELSIUS_TO_KELVIN_SHIFT
         self.pressure = pressure * 1e6 + CONST.PASCAL_TO_ATM
         return CP.PropsSI('D', 'T', self.temperature, 'P', self.pressure, self.mixture)
