@@ -37,13 +37,10 @@ class Window:
         Label(self.root, text=label, font=('Arial Bold', 18)).pack(pady=15)
         Button(self.root, text='Главное меню', font=("Arial Bold", 10), command=self.load_window_menu)\
             .place(anchor=NE, relx=1, x=-15, y=15)
-
         left_frame = ttk.Frame(borderwidth=1, relief=SOLID, padding=[8, 10])
         left_frame.place(relheight=1, relwidth=0.7, rely=0.1)
-
         right_frame = ttk.Frame(borderwidth=1, relief=SOLID, padding=[8, 10])
         right_frame.place(relheight=1, relwidth=0.3, rely=0.1, relx=0.7)
-
         return left_frame, right_frame
 
     def add_output_block(self, master_widget, pack_side=TOP):
@@ -74,11 +71,9 @@ class Window:
         for button_name, callback_name in button_data.items():
             frame = ttk.Frame(master_widget, borderwidth=1, padding=[4, 5])
             frame.pack(fill=X, side=pack_side)
-
             callback = None
             if callback_name is not None:
                 callback = lambda arg=callback_name: self.controller.run(arg)
-
             Button(master=frame,
                    text=button_name,
                    font=("Arial Bold", 10),
@@ -99,14 +94,12 @@ class Window:
         Label(master_widget, text="", font=('Arial Bold', 10)).pack(pady=amount, side=pack_side)
 
     def build_default_gui(self, window_name):
-        self.clear_window()
         if window_name not in windows:
             raise Exception(f'Нет окна с названием {window_name}')
+        self.clear_window()
         window_data = windows[window_name]
-
         if window_data['default_gui']:
             left_frame, right_frame = self.make_default_frames(window_name)
-
             if window_data['left_frame'] and 'output_block' in window_data['left_frame']:
                 self.add_output_block(left_frame)
             if window_data['right_frame']:
@@ -118,5 +111,32 @@ class Window:
                 self.add_empty_space(right_frame, pack_side=BOTTOM)
                 if 'buttons' in r_frame_data:
                     self.add_buttons_block(right_frame, r_frame_data['buttons'],pack_side=BOTTOM)
-
         self.controller.bind_widgets()
+
+    def load_window_menu(self):
+        # Главное меню
+        self.clear_window()
+        button_labels = [
+            'Расчет скорости в трубопроводах',
+            'Ёмкость одоранта',
+            'Пропускная способность клапанов',
+            'Расчёт подогревателя газа',
+            'Расчёт ППК',
+            'Толщина стенок трубопроводов',
+            'Схема',
+            'Статистика',
+            'База данных ГРС',
+            'Расчёт ТВПС',
+        ]
+        Label(self.root, text='НеВеста-ГРС', font=('Arial Bold', 18)).place(relx=0.5, anchor=N, y=30)
+
+        central_frame = ttk.Frame(self.root, borderwidth=1, padding=[4, 5])
+        central_frame.pack(expand=True, anchor=CENTER)
+        l = len(button_labels)
+        i = 0
+        for label in button_labels:
+            frame = ttk.Frame(central_frame, borderwidth=1, padding=[4, 5])
+            frame.grid(row=i // 2, column=i % 2)
+            Button(frame, text=label, font=("Arial Bold", 10), width=30,
+                   command=lambda lbl=label: self.build_default_gui(lbl)).pack()
+            i += 1

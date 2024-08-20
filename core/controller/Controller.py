@@ -1,10 +1,15 @@
 from tkinter.constants import INSERT
 
-from core.model.functions.UtilFunctions import *
+from core.controller.UtilFunctions import *
 from core.model.functions.function_props import commands
 
 
 class Controller:
+
+    __instance = None
+    @classmethod
+    def getInstance(cls):
+        if not cls.__instance
 
     def __init__(self):
         self.window = None
