@@ -45,39 +45,36 @@ def test_calc_pipe_diameter():
 
 def test_odorant_reserve_calc():
     expected_answer = 367.4479166666667
-    answer = odorant_reserve_calc(rate, volume)
+    answer = calc_odorant_reserve(rate, volume)
     assert abs(answer['odorant_reserve'] - expected_answer) < EPS
 
 
 def test_odorant_reserve_verdict():
     expected_answer = True
-    answer = odorant_reserve_verdict(rate, volume)
+    answer = calc_odorant_reserve_verdict(rate, volume)
     assert answer == expected_answer
 
 
-def test_odorant_volume_request() -> dict[str, float]:
+def test_odorant_volume_request():
     expected_answer = 1.63288447907
-    answer = odorant_volume_request(rate)
+    answer = calc_odorant_volume_request(rate)
     assert abs(answer['odorant_request'] - expected_answer) < EPS
 
 
 def test_valve_capacity_calc():
     expected_answers = [108084.50504532954, 28824.122093677506]
-    answers = [valve_capacity_calc(composition, kv, inlet_pressure, outlet_pressure, temperature, fluid_pack='PR')['valve_rate']
-              for outlet_pressure in outlet_pressures]
+    answers = [calc_valve_capacity(composition, kv, inlet_pressure, outlet_pressure, temperature, fluid_pack='PR')['valve_rate']
+               for outlet_pressure in outlet_pressures]
     for i in range(len(answers)):
         assert abs(answers[i] - expected_answers[i]) < EPS
 
 
 def test_valve_kv_calc():
     expected_answers = [46.26009989038716, 173.46582087565946]
-    answers = [valve_kv_calc(composition, rate, inlet_pressure, outlet_pressure, temperature)['kv']
-          for outlet_pressure in outlet_pressures]
+    answers = [calc_valve_kv(composition, rate, inlet_pressure, outlet_pressure, temperature)['kv']
+               for outlet_pressure in outlet_pressures]
     for i in range(len(answers)):
         assert abs(answers[i] - expected_answers[i]) < EPS
-
-
-#test_calc_pipe_velocity()
 
 
 test_functions = {'функции расчёта скоростей в трубопроводе': test_calc_pipe_velocity,
@@ -90,9 +87,10 @@ test_functions = {'функции расчёта скоростей в труб�
                   'функции расчёта требуемой пропускной способности регулятора': test_valve_kv_calc}
 
 
-for function_name, function in test_functions.items():
-    try:
-        function()
-    except AssertionError:
-        print(f'Ошибка в тесте {function_name}!!!')
-        break
+def run_all_tests():
+    for function_name, function in test_functions.items():
+        try:
+            function()
+        except AssertionError:
+            print(f'Ошибка в тесте {function_name}!!!')
+            break

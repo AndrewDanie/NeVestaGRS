@@ -32,6 +32,7 @@ def calc_pipe_velocity(composition: dict, temperature: float,
         'pipe_velocity': velocity
     }
 
+
 def calc_gas_density(composition: dict, fluid_pack: str = 'PR'):
     """
     This function calculates the density of fluid for normal and standard conditions
@@ -47,7 +48,8 @@ def calc_gas_density(composition: dict, fluid_pack: str = 'PR'):
     }
     return result
 
-def calc_pipe_diameter(composition: dict, temperature: float, pressure: float, rate: float, fluid_pack: str = 'PR') :
+
+def calc_pipe_diameter(composition: dict, temperature: float, pressure: float, rate: float, fluid_pack: str = 'PR'):
     """
     This function calculates minimal requests diameter of pipe for current volume rate of fluid for velocity=25 mps
 
@@ -65,7 +67,7 @@ def calc_pipe_diameter(composition: dict, temperature: float, pressure: float, r
     }
 
 
-def odorant_reserve_calc(rate: float, volume: float) -> dict[str, float]:
+def calc_odorant_reserve(rate: float, volume: float):
     """
     This function calculates numbers of days for maximal rate of gas to odorate gas
 
@@ -81,20 +83,21 @@ def odorant_reserve_calc(rate: float, volume: float) -> dict[str, float]:
     }
 
 
-def odorant_reserve_verdict(rate: float, volume:float) -> bool:
+def calc_odorant_reserve_verdict(rate: float, volume:float):
     """
     This function return final verdict for odorant vessel
     :param rate: fluid volume rate in standard cubic meters per hour;
     :param volume: volume of odorant vessel
     :return (bool):
     """
-    if odorant_reserve_calc(rate, volume)['odorant_reserve'] >= 60:
-        return True
-    else:
-        return False
+
+    verdict = calc_odorant_reserve(rate, volume)['odorant_reserve'] >= 60
+    return  {
+        'verdict' :verdict
+    }
 
 
-def odorant_volume_request(rate: float) -> dict[str, float]:
+def calc_odorant_volume_request(rate: float):
     """
     This function calculates requested odorant volume
     :param rate: fluid volume rate in standard cubic meters per hour;
@@ -111,8 +114,7 @@ def odorant_volume_request(rate: float) -> dict[str, float]:
     }
 
 
-def valve_capacity_calc(composition: dict, kv: int, inlet_pressure: float, outlet_pressure: float, temperature: float, fluid_pack = 'PR') -> \
-dict[str, float | Any]:
+def calc_valve_capacity(composition: dict, kv: int, inlet_pressure: float, outlet_pressure: float, temperature: float, fluid_pack ='PR'):
     """
     This function calculates capacity of valve by this fashion:
         https://dpva.ru/Guide/GuideEquipment/Valves/ControlValvesChoosingDPVA/?ysclid=lzwoz0zt3y667024699
@@ -140,8 +142,7 @@ dict[str, float | Any]:
     }
 
 
-def valve_kv_calc(composition: dict, rate: float, inlet_pressure: float, outlet_pressure: float, temperature: float, fluid_pack='PR') -> \
-dict[str, float | Any]:
+def calc_valve_kv(composition: dict, rate: float, inlet_pressure: float, outlet_pressure: float, temperature: float, fluid_pack='PR'):
     """
     This function calculates requests kv for gas rate
     :param composition: per component molar composition of fluid;
@@ -161,7 +162,7 @@ dict[str, float | Any]:
 
     if delta_pressure < inlet_pressure / 2:
         kv = mass_rate * temperature / 529 / (delta_pressure * outlet_pressure
-                                                                      * gas_density * temperature) ** 0.5
+                * gas_density * temperature) ** 0.5
     else:
         kv = mass_rate / 265 / inlet_pressure * (temperature / gas_density) ** 0.5
     return {

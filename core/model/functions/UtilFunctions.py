@@ -15,10 +15,10 @@ def get_validated_int(string_input):
 def get_validated_float(string_input : str):
     """Валидирует строку и возвращает число с плавающей точкой"""
     try:
-        string_input.replace(',', '.')
-        return int(string_input)
+        string_input = string_input.replace(u',', u'.')
+        return float(string_input)
     except:
-        raise Exception('Неверный формат десятичной дроби!')
+        raise Exception(f'Неверный формат десятичной дроби! {string_input}')
 
 
 def run_func(function_name, **kwargs):
@@ -28,3 +28,7 @@ def run_func(function_name, **kwargs):
     else:
         return getattr(PhysicFunctions, function_name)(**kwargs)
 
+def validate_input_string(string_input):
+    if string_input is None or string_input == '':
+        raise Exception('Пустая строка ввода')
+    else: return string_input

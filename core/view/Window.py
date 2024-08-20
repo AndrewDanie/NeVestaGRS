@@ -1,15 +1,14 @@
-from gc import callbacks
 from tkinter import *
 from tkinter import ttk
 from tkinter.scrolledtext import ScrolledText
 
+from core.model.functions.function_props import commands
 from core.view.window_props import windows
 
 
 class Window:
 
     def __init__(self, title, size='800x600', ):
-        super().__init__()
         self.root = Tk()
         self.title = self.root.title(title)
         self.geometry = self.root.geometry(size)
@@ -51,7 +50,16 @@ class Window:
         txt_window = ScrolledText(master_widget, height=20, state='disabled')
         txt_window.pack(fill=X, side=pack_side)
         self.interactive_widgets['outputs']['scrolled_window'] = txt_window
-        Button(master_widget, text='Очистить окно вывода', font=("Arial Bold", 10)).pack(pady=10, side=pack_side)
+        Button(master_widget,
+               text='Очистить окно вывода',
+               font=("Arial Bold", 10),
+               command=self.clear_output_window).pack(pady=10, side=pack_side)
+
+    def clear_output_window(self):
+        output_w = self.interactive_widgets['outputs']['scrolled_window']
+        output_w.configure(state='normal')
+        self.interactive_widgets['outputs']['scrolled_window'].delete(1.0, END)
+        output_w.configure(state='disable')
 
     def add_input_block(self, master_widget, input_labels, pack_side=TOP):
         for label in input_labels:
@@ -63,13 +71,19 @@ class Window:
             self.interactive_widgets['inputs'][label] = entry
 
     def add_buttons_block(self, master_widget, button_data, pack_side=TOP):
-        print(button_data)
-        for key in button_data:
+        for button_name, callback_name in button_data.items():
             frame = ttk.Frame(master_widget, borderwidth=1, padding=[4, 5])
             frame.pack(fill=X, side=pack_side)
-            callback = lambda x: self.controller.run(x)
-            print(key, button_data[key], callback)
-            Button(frame, text=key, font=("Arial Bold", 10), command=lambda: self.controller.run(button_data[key])).pack(side=LEFT)
+
+            callback = None
+            if callback_name is not None:
+                callback = lambda arg=callback_name: self.controller.run(arg)
+
+            Button(master=frame,
+                   text=button_name,
+                   font=("Arial Bold", 10),
+                   command=callback,
+               ).pack(side=LEFT)
 
     def add_combobox(self, master_widget, label, values, pack_side=TOP):
         frame = ttk.Frame(master_widget, borderwidth=1, padding=[8, 10])

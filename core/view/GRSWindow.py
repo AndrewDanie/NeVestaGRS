@@ -13,118 +13,23 @@ class GRSWindow(Window):
 
     def load_window_odorant_calc(self):
         # Ёмкость одоранта
-
-        self.clear_window()
-        input_labels = [
-            'Вместимость ёмкости',
-            'Расход газа в ст. м3',
-        ]
-        button_labels = {
-            'Требуемый объём' : None,
-            'Запас' : None,
-        }
-        left_frame, right_frame = self.make_default_frames('Ёмкость одоранта')
-
-        self.add_output_block(left_frame)
-
-        self.add_input_block(right_frame, input_labels)
-        self.add_empty_space(right_frame, 30, pack_side=BOTTOM)
-        self.add_buttons_block(right_frame, button_labels, pack_side=BOTTOM)
+        self.build_default_gui('Ёмкость одоранта')
 
     def load_window_valve_calc(self):
         # Расчёт пропускной способности клапанов
-        self.clear_window()
-        input_labels = [
-            'Давление до клапана, МПа',
-            'Давление после клапана, МПа',
-            'Температура, °С',
-            'Kv, м3/ч',
-        ]
-        button_labels = {
-            'Полный расчёт' : None,
-            'Расчёт Kv' : None,
-            'Выполнить расчёт' : None,
-        }
-        left_frame, right_frame = self.make_default_frames('Расчёт пропускной способности клапанов')
-
-        self.add_output_block(left_frame)
-
-        self.add_combobox(right_frame, 'Доступные ГРС', [1, 2, 3])
-        self.add_input_block(right_frame, input_labels)
-        self.add_empty_space(right_frame, 30, pack_side=BOTTOM)
-        self.add_buttons_block(right_frame, button_labels, pack_side=BOTTOM)
+        self.build_default_gui('Пропускная способность клапанов')
 
     def load_window_gas_heat_calc(self):
         # Теплотехнический расчёт, подбор подогревателя газа
-        self.clear_window()
-        input_labels = [
-            'Расход газа, ст. м3/ч',
-            'Давление на входе ГРС, МПа',
-            'Давление на выходе ГРС, МПа',
-            'Температура газа на входе ГРС, °С',
-            'Минимальная тем-ра на выходе, °С',
-        ]
-        button_labels = {
-            'Выполнить расчёт' : None,
-        }
-        left_frame, right_frame = self.make_default_frames('Теплотехнический расчёт, подбор подогревателя газа')
-
-        self.add_output_block(left_frame)
-
-        self.add_combobox(right_frame, 'Доступные ГРС', [1, 2, 3])
-        self.add_input_block(right_frame, input_labels)
-        self.add_empty_space(right_frame, 30, pack_side=BOTTOM)
-        self.add_buttons_block(right_frame, button_labels, pack_side=BOTTOM)
+        self.build_default_gui('Расчет подогревателя газа')
 
     def load_window_ppk_calc(self):
         # Расчёт предохранительных клапанов ГРС
-        self.clear_window()
-        input_labels = [
-            'Давление до клапана, МПа',
-            'Температура, °С',
-            'Альфа',
-            'Расход газа, ст. м3/ч'
-        ]
-        button_labels = {
-            'Выполнить расчёт' : None,
-            'Расчет седла' : None,
-        }
-        left_frame, right_frame = self.make_default_frames('Расчёт предохранительных клапанов ГРС')
-
-        self.add_output_block(left_frame)
-
-        self.add_combobox(right_frame, 'Доступные ГРС', [1, 2, 3])
-        self.add_input_block(right_frame, input_labels)
-        self.add_empty_space(right_frame, 30, pack_side=BOTTOM)
-        self.add_buttons_block(right_frame, button_labels, pack_side=BOTTOM)
+        self.build_default_gui('Расчёт предохранительных клапанов ГРС')
 
     def load_window_tvps_calc(self):
         # Расчёт ТВПС
-        self.clear_window()
-        input_labels = [
-            'Минимальное давление',
-            'Максимальное давление',
-            'Шаг по давлению',
-            'Минимальная температура',
-            'Максимальная температура',
-            'Число точек по температуре',
-            'Масштаб подписей данных'
-        ]
-        button_labels = {
-            'Таблица' : None,
-            'Расчёт' : None,
-            'Вставить секцию ТВПС' : None,
-            'График ТВПС' : None,
-            'Показать ТВПС' : None
-        }
-        left_frame, right_frame = self.make_default_frames('Расчёт ТВПС')
-
-        self.add_output_block(left_frame)
-
-        self.add_combobox(right_frame, 'Доступные ГРС', [1, 2, 3])
-        self.add_input_block(right_frame, input_labels)
-        self.add_empty_space(right_frame, 30, pack_side=BOTTOM)
-        self.add_buttons_block(right_frame, button_labels, pack_side=BOTTOM)
+        self.build_default_gui('Расчёт ТВПС')
 
     def load_window_menu(self):
         # Главное меню

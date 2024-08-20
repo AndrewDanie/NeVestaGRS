@@ -4,7 +4,7 @@ from core.model.functions.UtilFunctions import *
 from core.model.functions.function_props import commands
 
 
-class Controller():
+class Controller:
 
     def __init__(self):
         self.window = None
@@ -26,11 +26,10 @@ class Controller():
         self.txt_window = self.window.interactive_widgets['outputs']['scrolled_window']
 
     def run(self, command_name):
-        print(command_name)
         if self.window == None:
-            raise Exception[f'Нет связанного с контроллером окна!']
+            raise Exception(f'Нет связанного с контроллером окна!')
         if command_name not in commands:
-            raise Exception[f'Нет команды {command_name}']
+            raise Exception(f'Нет команды {command_name}')
         command_data = commands[command_name]
         args_data = command_data['args']
         kwargs = dict()
@@ -38,7 +37,8 @@ class Controller():
         if 'manual_input' in args_data:
             for inpt in args_data['manual_input']:
                 label = args_data['manual_input'][inpt]
-                value = get_validated_float(self.inputs[label].get())
+                str_value = validate_input_string(self.inputs[label].get())
+                value = get_validated_float(str_value)
                 kwargs[inpt] = value
         if 'composition' in args_data:
             if args_data['composition']:
