@@ -77,7 +77,7 @@ commands = {
             'composition' : True,
         },
         'return' : {
-            'kv' : 'Расход, м3/ч',
+            'kv' : 'Kv, м3/ч',
         }
     }
 }

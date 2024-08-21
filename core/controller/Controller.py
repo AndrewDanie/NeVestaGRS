@@ -9,7 +9,8 @@ class Controller:
     __instance = None
     @classmethod
     def getInstance(cls):
-        if not cls.__instance
+        if not cls.__instance:
+            return 
 
     def __init__(self):
         self.window = None

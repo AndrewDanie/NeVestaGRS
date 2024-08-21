@@ -17,7 +17,8 @@ inlet_pressure = 5.4
 outlet_pressures = 0.6, 5.3
 EPS = 10**(-4)
 gas = Gas(composition, fluid_pack='PR')
-
+alpha=0.8
+valve_area=1000
 
 def test_calc_pipe_velocity():
 
@@ -51,7 +52,7 @@ def test_odorant_reserve_calc():
 
 def test_odorant_reserve_verdict():
     expected_answer = True
-    answer = calc_odorant_reserve_verdict(rate, volume)
+    answer = calc_odorant_reserve_verdict(rate, volume)['verdict']
     assert answer == expected_answer
 
 
@@ -77,6 +78,26 @@ def test_valve_kv_calc():
         assert abs(answers[i] - expected_answers[i]) < EPS
 
 
+def test_calc_capacity_ppk():
+    expected_answer ={
+        'capacity_mass': 32454.709435924284,
+        'capacity_normal': 40655.321688846314,
+        'capacity_standard': 43663.38840152173
+    }
+    answer = calc_capacity_ppk(composition, inlet_pressure, temperature, alpha, valve_area)
+    for key in expected_answer.keys():
+        assert abs(expected_answer[key] - answer[key]) < EPS
+
+
+def test_calc_valve_area_ppk():
+    expected_answer ={
+        'valve_area': 1145.1241378751408,
+    }
+    answer = calc_valve_area_ppk(composition, inlet_pressure, temperature, alpha, rate)
+    for key in expected_answer.keys():
+        assert abs(expected_answer[key] - answer[key]) < EPS
+
+
 test_functions = {'функции расчёта скоростей в трубопроводе': test_calc_pipe_velocity,
                   'функции расчёта плотности смеси при ст.у. и н.у.': test_calc_gas_density,
                   'функции расчёта минимального диаметра трубопровода': test_calc_pipe_diameter,
@@ -84,7 +105,9 @@ test_functions = {'функции расчёта скоростей в труб�
                   'функции определения достаточности ёмкости одоранта': test_odorant_reserve_verdict,
                   'функции расчёта минимального объёма ёмкости одоранта': test_odorant_volume_request,
                   'функции расчёта пропускной способности регулятора': test_valve_capacity_calc,
-                  'функции расчёта требуемой пропускной способности регулятора': test_valve_kv_calc}
+                  'функции расчёта требуемой пропускной способности регулятора': test_valve_kv_calc,
+                  'функции расчёта пропускной способности ППК': test_calc_capacity_ppk,
+                  'функции расчёта площади седла ППК': test_calc_valve_area_ppk}
 
 
 def run_all_tests():

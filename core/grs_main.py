@@ -16,6 +16,7 @@ from core.model.entity.Gas import Gas
 from core.model.entity.Pipeline import Pipeline
 from core.model.entity.Vessel import Vessel
 
+
 component_list = ['Methane', 'Ethane', 'Propane', 'Isobutane', 'Butane',
                  'Isopentane', 'Pentane', 'Hexane', 'Oxygen',
                  'Nitrogen', 'CarbonDioxide']
@@ -808,11 +809,11 @@ def gas_heat_calc():
         outlet_gas_limit = Gas(chois, outlet_temperature_limit, outlet_pressure, rate)
         outlet_gas = Gas(chois, outlet_temperature, outlet_pressure, rate)
 
-        print(inlet_gas.heat_stream)
-        print(outlet_gas.heat_stream)
+        print(inlet_gas.get_heat_stream)
+        print(outlet_gas.get_heat_stream)
 
         heaters = {'ГПМ-ПТПГ-5': 170, 'ГПМ-ПТПГ-10': 300, 'ГПМ-ПТПГ-15М': 500, 'ГПМ-ПТПГ-30М': 1080, 'ГПМ-ПТПГ-100':2700} #это просто каталог доступных подогревателей
-        heat_power = (outlet_gas_limit.heat_stream - outlet_gas.heat_stream) / 3600 / 1000
+        heat_power = (outlet_gas_limit.get_heat_stream - outlet_gas.get_heat_stream) / 3600 / 1000
 
         heater_chois = None
 
@@ -1317,8 +1318,8 @@ def main_window():
             btn.grid(column=300, row=i*100-100*row_number)
     root.mainloop()
 
-
 main_window()
+
 #insert_tvps_section()
 def pressure_drop_calc():
 

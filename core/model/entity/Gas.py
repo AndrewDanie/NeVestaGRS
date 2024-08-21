@@ -1,4 +1,6 @@
 import CoolProp.CoolProp as CP
+from numpy.random.mtrand import normal
+
 import core.model.functions.constants as CONST
 
 
@@ -20,6 +22,7 @@ class Gas:
         молярная масса смеси - float
     """
 
+
     def __init__(self, composition: dict, fluid_pack: str='PR'):
         self.mole_composition = composition # состав в мольных долях компонентов
         fluid_pack_list = ['PR', 'SRK', 'HEOS']
@@ -30,6 +33,7 @@ class Gas:
         self.molecular_mass = CP.PropsSI('M', self.mixture)
         self.mass_composition = {key: (composition[key] * CP.PropsSI('M', key) / self.molecular_mass)
                                  for key in composition.keys()} # состав в массовых долях компонентов
+
 
     def input_temperature_pressure(self, temperature: float, pressure: float) -> tuple:
         """
@@ -46,13 +50,18 @@ class Gas:
         self.pressure = pressure * 1e6 + CONST.PASCAL_TO_ATM
         return self.temperature, self.pressure
 
+
     def get_standard_density(self) -> float:
         """Метод возвращает плотность смеси при стандартных условиях"""
-        return CP.PropsSI('D', 'T', CONST.CELSIUS_TO_KELVIN_SHIFT + 20, 'P', CONST.PASCAL_TO_ATM, self.mixture)
+        standard_density = CP.PropsSI('D', 'T', CONST.CELSIUS_TO_KELVIN_SHIFT + 20, 'P', CONST.PASCAL_TO_ATM, self.mixture)
+        return standard_density
+
 
     def get_normal_density(self) -> float:
         """Метод возвращает плотность смеси при нормальных условиях"""
-        return CP.PropsSI('D', 'T', CONST.CELSIUS_TO_KELVIN_SHIFT, 'P', CONST.PASCAL_TO_ATM, self.mixture)
+        normal_density = CP.PropsSI('D', 'T', CONST.CELSIUS_TO_KELVIN_SHIFT, 'P', CONST.PASCAL_TO_ATM, self.mixture)
+        return normal_density
+
 
     def get_actual_density(self, temperature: float, pressure: float) -> float:
         """
@@ -62,13 +71,17 @@ class Gas:
         """
         self.temperature = temperature + CONST.CELSIUS_TO_KELVIN_SHIFT
         self.pressure = pressure * 1e6 + CONST.PASCAL_TO_ATM
-        return CP.PropsSI('D', 'T', self.temperature, 'P', self.pressure, self.mixture)
+        actual_density = CP.PropsSI('D', 'T', self.temperature, 'P', self.pressure, self.mixture)
+        return actual_density
+
 
     def get_entalpy(self, temperature: float, pressure: float) -> float:
         """Возвращает энтальпию смеси при заданных температуре и давлении"""
         self.temperature = temperature + CONST.CELSIUS_TO_KELVIN_SHIFT
         self.pressure = pressure * 1e6 + CONST.PASCAL_TO_ATM
-        return CP.PropsSI('H', 'T', self.temperature, 'P', self.pressure, self.mixture)
+        entalpy = CP.PropsSI('H', 'T', self.temperature, 'P', self.pressure, self.mixture)
+        return entalpy
+
 
     def get_rate(self, temperature: float, pressure: float, rate: float, parameter='standard') -> float:
         """Метод возвращает расход в зависимости от заданного параметра, по умолчанию стандартный расход,
@@ -87,23 +100,30 @@ class Gas:
                 'actual': actual_rate}
         return rate[parameter]
 
+
     def get_component_specific_heat(self, temperature: float, pressure: float) -> dict:
         """Метод возвращает теплоёмкость компонентов при заданных ему температуре и давлению"""
         self.temperature = temperature + CONST.CELSIUS_TO_KELVIN_SHIFT
         self.pressure = pressure * 1e6 + CONST.PASCAL_TO_ATM
-        return {key: (CP.PropsSI('C', 'T', self.temperature, 'P', self.pressure, key)) for key in self.composition}
+        component_specific_heat = {key: (CP.PropsSI('C', 'T', self.temperature, 'P', self.pressure, key)) for key in self.composition}
+        return component_specific_heat
+
 
     def get_specific_heat(self, temperature: float, pressure: float) -> float:
         """Метод возвращает теплоёмкость смеси при заданных ему температуре и давлении"""
         self.temperature = temperature + CONST.CELSIUS_TO_KELVIN_SHIFT
         self.pressure = pressure * 1e6 + CONST.PASCAL_TO_ATM
-        return CP.PropsSI('C', 'T', self.temperature, 'P', self.pressure, self.mixture)
+        specific_heat = CP.PropsSI('C', 'T', self.temperature, 'P', self.pressure, self.mixture)
+        return specific_heat
 
-    def heat_stream(self, temperature: float, pressure: float) -> float:
+
+    def get_heat_stream(self, temperature: float, pressure: float) -> float:
         """Метод возвращает тепловой поток смеси"""
-        return self.get_rate(temperature, pressure, parameter='mass') * self.get_specific_heat(temperature, pressure)
+        heat_stream = self.get_rate(temperature, pressure, parameter='mass') * self.get_specific_heat(temperature, pressure)
+        return heat_stream
 
-    def viscosity(self, temperature: float, pressure: float) -> float:
+
+    def get_viscosity(self, temperature: float, pressure: float) -> float:
         """Метод возвращает вязкость смеси при заданных температуре и давлении"""
         self.temperature = temperature + CONST.CELSIUS_TO_KELVIN_SHIFT
         self.pressure = pressure * 1e6 + CONST.PASCAL_TO_ATM

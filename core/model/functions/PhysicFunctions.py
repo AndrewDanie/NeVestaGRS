@@ -3,11 +3,12 @@
 """
 
 import math
-from typing import Dict, Any
+
 
 from core.model.entity.Gas import Gas
 from core.model.entity.Pipeline import Pipeline
 import core.model.functions.constants as CONST
+
 
 
 def calc_pipe_velocity(composition: dict, temperature: float,
@@ -22,7 +23,7 @@ def calc_pipe_velocity(composition: dict, temperature: float,
     :param rate: fluid volume rate in standard cubic meters per hour;
     :param diameter: external diameter of pipe, mm;
     :param wall: pipeshell thickness, mm;
-    :param fluid_pack: fluid thermodynamic pack:
+    :param fluid_pack: fluid thermodynamic pack.
     :return velocity (float): the velocity of fluid in pipe
     """
     gas = Gas(composition, fluid_pack)
@@ -149,6 +150,7 @@ def calc_valve_kv(composition: dict, rate: float, inlet_pressure: float, outlet_
     :param rate: fluid volume rate in standard cubic meters per hour;
     :param inlet_pressure: pressure before valve
     :param outlet_pressure: pressure after valve
+    :param temperature: temperature of fluid, °C;
     :param fluid_pack: fluid thermodynamic pack:
     :return kv (float): volume of liquid of density 1000 with pressure drop 1 bar
     """
@@ -167,4 +169,51 @@ def calc_valve_kv(composition: dict, rate: float, inlet_pressure: float, outlet_
         kv = mass_rate / 265 / inlet_pressure * (temperature / gas_density) ** 0.5
     return {
         'kv': kv
+    }
+
+
+def calc_capacity_ppk(composition: dict, inlet_pressure: float, temperature: float, alpha: float, valve_area: float):
+    """
+    This function calculates capacity of spring safety valve
+    :param composition: per component molar composition of fluid;
+    :param inlet_pressure: pressure before valve
+    :param temperature: temperature of fluid, °C;
+    :param alpha: rate coefficient
+    :param valve_area: area of valve for gas through
+    :return (dict): max gas rate of spring safety valve:
+        capacity_mass - by kg per hour
+        capacity_normal - volume gas rate for normal conditions
+        capacity_standard - volume gas rate for standard conditions
+    """
+    gas = Gas(composition)
+    k = CONST.ADIABATIC_COEFF_METHANE
+    b3 = 1.59 * ((k / (k + 1)) ** 0.5) * ((2 / (k + 1)) ** (1 / (k - 1))) #ГОСТ 12.2.085-2002
+    capacity_mass = 3.16 * b3 * alpha * valve_area * ((inlet_pressure + 0.1) * gas.get_actual_density(temperature, inlet_pressure)) ** 0.5
+    capacity_normal = capacity_mass / gas.get_normal_density()
+    capacity_standard = capacity_mass / gas.get_standard_density()
+    return {
+        'capacity_mass': capacity_mass,
+        'capacity_normal': capacity_normal,
+        'capacity_standard': capacity_standard
+    }
+
+
+def calc_valve_area_ppk(composition: dict, inlet_pressure: float, temperature: float, alpha: float, rate: float):
+    """
+    This function calculates capacity of spring safety valve
+    :param composition: per component molar composition of fluid;
+    :param inlet_pressure: pressure before valve
+    :param temperature: temperature of fluid, °C;
+    :param alpha: rate coefficient
+    :param rate: max rate of gas for standard conditions
+    :return: (dict)
+        valve_area (float) - requested valve_area
+    """
+
+    gas = Gas(composition)
+    k = CONST.ADIABATIC_COEFF_METHANE
+    b3 = 1.59 * ((k / (k + 1)) ** 0.5) * ((2 / (k + 1)) ** (1 / (k - 1))) #ГОСТ 12.2.085-2002
+    valve_area = rate * gas.get_standard_density() / (3.16 * b3 * alpha * ((inlet_pressure + 0.1) * gas.get_actual_density(temperature, inlet_pressure)) ** 0.5)
+    return {
+        'valve_area': valve_area
     }
