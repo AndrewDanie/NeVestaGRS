@@ -88,7 +88,13 @@ commands = {
                 'temperature': 'Температура, °С',
                 'alpha': 'Коэффициент расхода',
                 'valve_area': 'Площадь седла, мм',
-            }
+            },
+            'composition' : True,
+        },
+        'return' : {
+            'capacity_mass': 'Расход, кг/ч',
+            'capacity_normal': 'Расход, нм3/ч',
+            'capacity_standard': 'Расход, ст.м3/ч'
         }
     },
     'calc_valve_area_ppk': {
@@ -98,8 +104,12 @@ commands = {
                 'inlet_pressure': 'Давление, МПа',
                 'temperature': 'Температура, °С',
                 'alpha': 'Коэффициент расхода',
-                'rate': 'Расход, ст м3/ч',
-            }
+                'rate': 'Расход, ст. м3/ч',
+            },
+            'composition' : True,
+        },
+        'return' : {
+            'valve_area': 'Площадь седла, мм2'
         }
     }
 }

@@ -51,7 +51,7 @@ def get_composition(name_grs, normolize=True):
     return composition
 
 
-database_path = r'C:\Users\Идель\PycharmProjects\pythonProject2\grs_database.db'
+database_path = 'grs_database.db'
 
 months = ('01', '02', '03', '04',
           '05', '06', '07', '08',
@@ -72,7 +72,7 @@ def record_data():
 
         database_path = db_path_entry.get()
         if database_path == '':
-            database_path = r'C:\Users\Идель\PycharmProjects\pythonProject2\grs_database.db'
+            database_path = 'grs_database.db'
             message = 'Прописан стандартный путь к базе данных\n'
         grs_name = grs_cmb.get()
         if grs_name == '':

@@ -7,7 +7,9 @@
     <list default="true" id="f607f56e-4ff3-4da4-83f7-2cd0ed8438d4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/model/entity/Gas.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/entity/Gas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/model/functions/function_props.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/functions/function_props.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/model/functions/PhysicFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/functions/PhysicFunctions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/view/GRSWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/view/GRSWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/functions/PhysicFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/functions/PhysicFunctions.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +70,7 @@
     "Python.grs_interface.executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "refactor",
+    "git-widget-placeholder": "#1 on refactor",
     "last_opened_file_path": "C:/Users/Идель/PycharmProjects/NeVestaGRS",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
@@ -79,7 +81,7 @@
       <recent name="D:\PetProjects\NeVestaGRS\core" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.PhysicFunctions (1)">
     <configuration name="PhysicFunctions (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="NeVestaGRS" />
       <option name="ENV_FILES" value="" />
@@ -199,8 +201,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.PhysicFunctions (1)" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.PhysicFunctions" />
         <item itemvalue="Python.grs_interface" />
         <item itemvalue="Python.Window" />

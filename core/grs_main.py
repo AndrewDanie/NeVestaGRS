@@ -1007,8 +1007,8 @@ def tvps_calc():
     connection = sqlite3.connect(database_path)
     cur = connection.cursor()
 
-    section_cmb = Combobox(root, width=40)
-    section_cmb.grid(column=0, row=100)
+    section_cmb = Combobox(root, width=20)
+    section_cmb.grid(column=0, row=10)
     cur.execute(f"""SELECT section_name FROM tvps WHERE block_id IN (
     SELECT block_id FROM blocks WHERE grs_id = (SELECT grs_id FROM grs WHERE name_grs = '{grs_cmb.get()}'))""")
     sections = [data[0] for data in cur.fetchall()]
@@ -1289,7 +1289,7 @@ def tvps_calc():
     show_tvps_btn = Button(root, text="Показать ТВПС", command=show_tvps, fg='black', bg='pink')
     show_tvps_btn.grid(column=0, row=1400)
 
-    txtwin = scrolledtext.ScrolledText(root, width=140, height=10, bg="darkgreen", fg='white')
+    txtwin = scrolledtext.ScrolledText(root, width=70, height=10, bg="darkgreen", fg='white')
     txtwin.grid(column=10, row=10)
 
     root.mainloop()
