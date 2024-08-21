@@ -79,5 +79,27 @@ commands = {
         'return' : {
             'kv' : 'Kv, м3/ч',
         }
+    },
+    'calc_capacity_ppk' : {
+        'function' : 'calc_capacity_ppk',
+        'args' : {
+            'manual_input' : {
+                'inlet_pressure': 'Давление, МПа',
+                'temperature': 'Температура, °С',
+                'alpha': 'Коэффициент расхода',
+                'valve_area': 'Площадь седла, мм',
+            }
+        }
+    },
+    'calc_valve_area_ppk': {
+        'function': 'calc_valve_area_ppk',
+        'args': {
+            'manual_input': {
+                'inlet_pressure': 'Давление, МПа',
+                'temperature': 'Температура, °С',
+                'alpha': 'Коэффициент расхода',
+                'rate': 'Расход, ст м3/ч',
+            }
+        }
     }
 }
