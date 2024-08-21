@@ -1,4 +1,4 @@
-from core.model.functions.PhysicFunctions import *
+from core.model.functions.physic_functions import *
 
 """
 входные данные для тестов

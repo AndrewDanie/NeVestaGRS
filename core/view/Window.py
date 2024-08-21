@@ -2,8 +2,8 @@ from tkinter import *
 from tkinter import ttk
 from tkinter.scrolledtext import ScrolledText
 
-from core.model.functions.function_props import commands
-from core.view.window_props import windows
+from core.model.functions.variables import cache_variable_dict
+from core.view.window_config import properties
 
 
 class Window:
@@ -12,131 +12,115 @@ class Window:
         self.root = Tk()
         self.title = self.root.title(title)
         self.geometry = self.root.geometry(size)
-        self.interactive_widgets = None
-        self.clear_interactive_widgets()
-        self.controller = None
-
-    def bind_controller(self, controller):
-        self.controller = controller
-        controller.bind_window(self)
 
     def mainloop(self):
         self.root.mainloop()
 
-    def clear_interactive_widgets(self):
-        self.interactive_widgets = dict()
-        self.interactive_widgets['inputs'] = dict()
-        self.interactive_widgets['outputs'] = dict()
-
     def clear_window(self):
-        self.clear_interactive_widgets()
         for slave in self.root.winfo_children():
             slave.destroy()
 
     def make_default_frames(self, label):
         Label(self.root, text=label, font=('Arial Bold', 18)).pack(pady=15)
-        Button(self.root, text='Главное меню', font=("Arial Bold", 10), command=self.load_window_menu)\
+        Button(self.root,
+               name='to_main_menu_button',
+               text='Главное меню', font=("Arial Bold", 10))\
             .place(anchor=NE, relx=1, x=-15, y=15)
-        left_frame = ttk.Frame(borderwidth=1, relief=SOLID, padding=[8, 10])
+        left_frame = ttk.Frame(master=self.root,
+                               name='left_frame',
+                               borderwidth=1, relief=SOLID, padding=[8, 10])
         left_frame.place(relheight=1, relwidth=0.7, rely=0.1)
-        right_frame = ttk.Frame(borderwidth=1, relief=SOLID, padding=[8, 10])
+        right_frame = ttk.Frame(master=self.root,
+                                name='right_frame',
+                                borderwidth=1, relief=SOLID, padding=[8, 10])
         right_frame.place(relheight=1, relwidth=0.3, rely=0.1, relx=0.7)
-        return left_frame, right_frame
 
     def add_output_block(self, master_widget, pack_side=TOP):
-        txt_window = ScrolledText(master_widget, height=20, state='disabled')
-        txt_window.pack(fill=X, side=pack_side)
-        self.interactive_widgets['outputs']['scrolled_window'] = txt_window
+        output_txt_field = ScrolledText(master_widget,
+                                  name='output_txt_field',
+                                  height=20, state='disabled')
+        output_txt_field.pack(fill=X, side=pack_side)
         Button(master_widget,
                text='Очистить окно вывода',
                font=("Arial Bold", 10),
                command=self.clear_output_window).pack(pady=10, side=pack_side)
 
     def clear_output_window(self):
-        output_w = self.interactive_widgets['outputs']['scrolled_window']
-        output_w.configure(state='normal')
-        self.interactive_widgets['outputs']['scrolled_window'].delete(1.0, END)
-        output_w.configure(state='disable')
+        output_txt_field = self.root.nametowidget('left_frame.!frame.output_txt_field')
+        output_txt_field.configure(state='normal')
+        output_txt_field.delete(1.0, END)
+        output_txt_field.configure(state='disable')
 
-    def add_input_block(self, master_widget, input_labels, pack_side=TOP):
-        for label in input_labels:
-            frame = ttk.Frame(master_widget, borderwidth=1, padding=[4, 5])
+    def add_input_block(self, master_widget, input_data, pack_side=TOP):
+        for label in input_data:
+            frame = ttk.Frame(master_widget,
+                              name=f'{label}_input_wrapper',
+                              borderwidth=1, padding=[4, 5])
             frame.pack(fill=X, side=pack_side)
-            Label(frame, text=label, font=('Arial Bold', 10)).pack(side=LEFT)
-            entry = Entry(frame, width=10, justify='center')
+            lbl_text = label[2:] if label[:2] == '__' else cache_variable_dict[label]
+            Label(frame, text=lbl_text, font=('Arial Bold', 10)).pack(side=LEFT)
+            entry = Entry(master=frame,
+                          name=label,
+                          width=10, justify='center')
             entry.pack(side=LEFT)
-            self.interactive_widgets['inputs'][label] = entry
 
     def add_buttons_block(self, master_widget, button_data, pack_side=TOP):
-        for button_name, callback_name in button_data.items():
-            frame = ttk.Frame(master_widget, borderwidth=1, padding=[4, 5])
+        for button_name in button_data:
+            frame = ttk.Frame(master=master_widget,
+                              name=f'{button_name}_button_wrapper',
+                              borderwidth=1, padding=[4, 5])
             frame.pack(fill=X, side=pack_side)
-            callback = None
-            if callback_name is not None:
-                callback = lambda arg=callback_name: self.controller.run(arg)
-            Button(master=frame,
-                   text=button_name,
-                   font=("Arial Bold", 10),
-                   command=callback,
-               ).pack(side=LEFT)
+            lbl_text = button_name
+            button = Button(master=frame,
+                name=button_name,
+                text=lbl_text,
+                font=("Arial Bold", 10),
+            )
+            button.pack(side=LEFT)
 
-    def add_combobox(self, master_widget, label, values, pack_side=TOP):
-        frame = ttk.Frame(master_widget, borderwidth=1, padding=[8, 10])
-        frame.pack(fill=X, side=pack_side)
-        Label(frame, text=label, font=('Arial Bold', 10)).pack(side=LEFT)
-        combo = ttk.Combobox(frame)
-        combo['values'] = values
-        combo.current(0)
-        combo.pack(side=LEFT)
-        self.interactive_widgets['inputs'][label] = combo
+    def add_combobox(self, master_widget, combobox_data, values, pack_side=TOP):
+        for combobox_name in combobox_data:
+            frame = ttk.Frame(master=master_widget,
+                              name=f'{combobox_name}_input_wrapper',
+                              borderwidth=1, padding=[8, 10])
+            frame.pack(fill=X, side=pack_side)
+            lbl_text = combobox_name[2:] if combobox_name[:2] == '__' else cache_variable_dict[combobox_name]
+            Label(frame, text=lbl_text, font=('Arial Bold', 10)).pack(side=LEFT)
+            combo = ttk.Combobox(frame, name=combobox_name)
+            combo['values'] = values
+            combo.current(0)
+            combo.pack(side=LEFT)
 
     def add_empty_space(self, master_widget, amount=30, pack_side=TOP):
         Label(master_widget, text="", font=('Arial Bold', 10)).pack(pady=amount, side=pack_side)
 
-    def build_default_gui(self, window_name):
-        if window_name not in windows:
-            raise Exception(f'Нет окна с названием {window_name}')
+    def build_default_calculator(self, window_name, window_data):
         self.clear_window()
-        window_data = windows[window_name]
-        if window_data['default_gui']:
-            left_frame, right_frame = self.make_default_frames(window_name)
-            if window_data['left_frame'] and 'output_block' in window_data['left_frame']:
-                self.add_output_block(left_frame)
-            if window_data['right_frame']:
-                r_frame_data = window_data['right_frame']
-                if 'combobox' in r_frame_data:
-                    self.add_combobox(right_frame, r_frame_data['combobox'], [1, 2, 3])
-                if 'input_labels' in r_frame_data:
-                    self.add_input_block(right_frame, r_frame_data['input_labels'])
-                self.add_empty_space(right_frame, pack_side=BOTTOM)
-                if 'buttons' in r_frame_data:
-                    self.add_buttons_block(right_frame, r_frame_data['buttons'],pack_side=BOTTOM)
-        self.controller.bind_widgets()
+        self.make_default_frames(window_name)
+        right_frame = self.root.nametowidget("right_frame")
+        left_frame = self.root.nametowidget("left_frame")
+        self.add_output_block(left_frame)
+        widgets = window_data['widgets']
+        if 'combobox' in widgets:
+            self.add_combobox(right_frame, widgets['combobox'], [1, 2, 3])
+        if 'entry' in widgets:
+            self.add_input_block(right_frame, widgets['entry'])
+        self.add_empty_space(right_frame, pack_side=BOTTOM)
+        if 'button' in widgets:
+            self.add_buttons_block(right_frame, widgets['button'],pack_side=BOTTOM)
 
-    def load_window_menu(self):
+    def build_window_menu(self):
         # Главное меню
         self.clear_window()
-        button_labels = [
-            'Расчет скорости в трубопроводах',
-            'Ёмкость одоранта',
-            'Пропускная способность клапанов',
-            'Расчёт подогревателя газа',
-            'Расчёт предохранительных клапанов',
-            'Толщина стенок трубопроводов',
-            'Схема',
-            'Статистика',
-            'База данных ГРС',
-            'Расчёт ТВПС',
-        ]
         Label(self.root, text='НеВеста-ГРС', font=('Arial Bold', 18)).place(relx=0.5, anchor=N, y=30)
-
         central_frame = ttk.Frame(self.root, borderwidth=1, padding=[4, 5])
         central_frame.pack(expand=True, anchor=CENTER)
-        l = len(button_labels)
         i = 0
-        for label in button_labels:
+        self.button_list = []
+        for window_name in properties:
             frame = ttk.Frame(central_frame, borderwidth=1, padding=[4, 5])
             frame.grid(row=i // 2, column=i % 2)
-            Button(frame, text=label, font=("Arial Bold", 10), width=30,
-                   command=lambda lbl=label: self.build_default_gui(lbl)).pack()
+            button = Button(frame, text=window_name, font=("Arial Bold", 10), width=30)
+            button.pack()
+            self.button_list.append(button)
             i += 1

@@ -1,7 +1,9 @@
 from tkinter.constants import INSERT
 
-from core.controller.UtilFunctions import *
-from core.model.functions.function_props import commands
+from core.model.functions.variables import cache_variable_dict
+from core.controller.util_functions import *
+from core.view.window_config import properties
+from core.view.Window import Window
 
 
 class Controller:
@@ -12,48 +14,63 @@ class Controller:
         if not cls.__instance:
             return 
 
-    def __init__(self):
-        self.window = None
-        self.inputs = None
-        self.outputs = None
-        self.txt_window = None
+    def __init__(self, window: Window):
+        self.window = window
         self.composition = {
             'Methane': 0.7,
             'Ethane': 0.2,
             'Propane': 0.1
         }
 
-    def bind_window(self, window):
-        self.window = window
+    def run_application(self):
+        self.window.build_window_menu()
+        buttons = self.window.button_list
+        for button in buttons:
+            window_name = button.cget('text')
+            window_data = properties[button.cget('text')]
+            callback = None
+            if window_data is not None:
+                callback = lambda e, lbl=window_name: self.configure_gui(lbl)
+            button.bind('<Button-1>', callback)
+        self.window.mainloop()
 
-    def bind_widgets(self):
-        self.inputs = self.window.interactive_widgets['inputs']
-        self.outputs = self.window.interactive_widgets['outputs']
-        self.txt_window = self.window.interactive_widgets['outputs']['scrolled_window']
+    def configure_gui(self, window_name):
+        if window_name not in properties or properties[window_name] is None:
+            raise Exception(f'Нет окна с названием {window_name}')
+        window_data = properties[window_name]
+        if window_data['gui_template'] == 'default_calculator':
+            self.window.build_default_calculator(window_name, window_data)
+            back_to_menu_button = self.window.root.nametowidget('to_main_menu_button')
+            back_to_menu_button.bind('<Button-1>', lambda e: self.run_application())
+            buttons = window_data['widgets']['button']
+            for name in buttons:
+                button = self.window.root.nametowidget(f'right_frame.{name}_button_wrapper.{name}')
+                callback = None
+                if name[:2] != '__':
+                    callback = lambda e, func=name: self.run(func)
+                button.bind('<Button-1>', callback)
 
-    def run(self, command_name):
-        if self.window == None:
-            raise Exception(f'Нет связанного с контроллером окна!')
-        if command_name not in commands:
-            raise Exception(f'Нет команды {command_name}')
-        command_data = commands[command_name]
-        args_data = command_data['args']
+    def get_input(self, name):
+        input_widget = self.window.root.nametowidget(f'right_frame.{name}_input_wrapper.{name}')
+        return input_widget.get()
+
+    def run(self, function_name):
+        func_parameters = get_non_default_params_of_func(function_name)
+
         kwargs = dict()
-
-        if 'manual_input' in args_data:
-            for inpt in args_data['manual_input']:
-                label = args_data['manual_input'][inpt]
-                str_value = validate_input_string(self.inputs[label].get())
+        for param_name in func_parameters:
+            if param_name == 'composition':
+                kwargs[param_name] = self.composition
+            else:
+                str_value = self.get_input(param_name)
+                str_value = validate_input_string(str_value)
                 value = get_validated_float(str_value)
-                kwargs[inpt] = value
-        if 'composition' in args_data:
-            if args_data['composition']:
-                kwargs['composition'] = self.composition
+                kwargs[param_name] = value
 
-        result = run_func(command_data['function'], **kwargs)
 
-        return_data = command_data['return']
-        self.txt_window.configure(state='normal')
-        for name in return_data:
-            self.txt_window.insert(INSERT, return_data[name] + ' = ' + str(result[name]) + '\n')
-        self.txt_window.configure(state='disable')
+        result = run_func(function_name, **kwargs)
+        output_txt_field = self.window.root.nametowidget('left_frame.!frame.output_txt_field')
+        output_txt_field.configure(state='normal')
+        for name in result:
+            output_txt_field.insert(INSERT, cache_variable_dict[name] + ' = ' + str(result[name]) + '\n')
+        output_txt_field.configure(state='disable')

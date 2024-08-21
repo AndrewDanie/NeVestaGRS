@@ -1,7 +1,8 @@
 """
     Различные вспомогательные фукнции
 """
-from core.model.functions import PhysicFunctions
+import inspect
+from core.model.functions import physic_functions
 
 
 def get_validated_int(string_input):
@@ -26,7 +27,11 @@ def run_func(function_name, **kwargs):
     if None in kwargs.values():
         raise Exception('Не хватает аргументов!')
     else:
-        return getattr(PhysicFunctions, function_name)(**kwargs)
+        return getattr(physic_functions, function_name)(**kwargs)
+
+def get_non_default_params_of_func(function_name):
+    sig = inspect.signature(getattr(physic_functions, function_name))
+    return (p for p in sig.parameters if sig.parameters[p].default == inspect.Parameter.empty)
 
 def validate_input_string(string_input):
     if string_input is None or string_input == '':
