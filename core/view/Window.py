@@ -3,7 +3,6 @@ from tkinter import ttk
 from tkinter.scrolledtext import ScrolledText
 
 from core.model.functions.variables import cache_variable_dict
-from core.view.window_config import properties
 
 
 class Window:
@@ -109,7 +108,7 @@ class Window:
         if 'button' in widgets:
             self.add_buttons_block(right_frame, widgets['button'],pack_side=BOTTOM)
 
-    def build_window_menu(self):
+    def build_window_menu(self, properties):
         # Главное меню
         self.clear_window()
         Label(self.root, text='НеВеста-ГРС', font=('Arial Bold', 18)).place(relx=0.5, anchor=N, y=30)

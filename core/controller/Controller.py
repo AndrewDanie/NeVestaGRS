@@ -2,7 +2,6 @@ from tkinter.constants import INSERT
 
 from core.model.functions.variables import cache_variable_dict
 from core.controller.util_functions import *
-from core.view.window_config import properties
 from core.view.Window import Window
 
 
@@ -21,13 +20,14 @@ class Controller:
             'Ethane': 0.2,
             'Propane': 0.1
         }
+        self.properties = parse_yaml('view\\window_config.yml')
 
     def run_application(self):
-        self.window.build_window_menu()
+        self.window.build_window_menu(self.properties)
         buttons = self.window.button_list
         for button in buttons:
             window_name = button.cget('text')
-            window_data = properties[button.cget('text')]
+            window_data = self.properties[button.cget('text')]
             callback = None
             if window_data is not None:
                 callback = lambda e, lbl=window_name: self.configure_gui(lbl)
@@ -35,9 +35,9 @@ class Controller:
         self.window.mainloop()
 
     def configure_gui(self, window_name):
-        if window_name not in properties or properties[window_name] is None:
+        if window_name not in self.properties or self.properties[window_name] is None:
             raise Exception(f'Нет окна с названием {window_name}')
-        window_data = properties[window_name]
+        window_data = self.properties[window_name]
         if window_data['gui_template'] == 'default_calculator':
             self.window.build_default_calculator(window_name, window_data)
             back_to_menu_button = self.window.root.nametowidget('to_main_menu_button')
@@ -66,7 +66,6 @@ class Controller:
                 str_value = validate_input_string(str_value)
                 value = get_validated_float(str_value)
                 kwargs[param_name] = value
-
 
         result = run_func(function_name, **kwargs)
         output_txt_field = self.window.root.nametowidget('left_frame.!frame.output_txt_field')

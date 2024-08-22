@@ -2,6 +2,9 @@
     Различные вспомогательные фукнции
 """
 import inspect
+import yaml
+
+
 from core.model.functions import physic_functions
 
 
@@ -37,3 +40,8 @@ def validate_input_string(string_input):
     if string_input is None or string_input == '':
         raise Exception('Пустая строка ввода')
     else: return string_input
+
+def parse_yaml(file_path):
+    with open(file_path, 'r', encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+        return data
