@@ -16,9 +16,17 @@ class Controller:
     def __init__(self, window: Window):
         self.window = window
         self.composition = {
-            'Methane': 0.7,
-            'Ethane': 0.2,
-            'Propane': 0.1
+            'Methane': 0.9197,
+            'Ethane': 0.0446,
+            'Propane': 0.0192,
+            'Isobutane': 0.0052,
+            'Butane': 0.0043,
+            'Isopentane': 0.0013,
+            'Pentane': 0.0007,
+            'Hexane': 0.0007,
+            'Oxygen': 0.0020,
+            'Nitrogen': 0.002,
+            'CarbonDioxide': 0.0002,
         }
         self.properties = parse_yaml('view\\window_config.yml')
 

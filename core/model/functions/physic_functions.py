@@ -10,7 +10,6 @@ from core.model.entity.Pipeline import Pipeline
 import core.model.functions.constants as CONST
 
 
-
 def calc_pipe_velocity(composition: dict, temperature: float,
                        pressure: float, rate: float, diameter: float,
                        wall: float, fluid_pack: str = 'PR'):
@@ -42,7 +41,7 @@ def calc_gas_density(composition: dict, fluid_pack: str = 'PR'):
     :param fluid_pack: fluid thermodynamic pack:
     :return normal_density, standard_density (float): densities for normal and standard conditions
     """
-    gas = Gas(composition, fluid_pack)
+    gas = Gas(composition, fluid_pack='PR')
     result = {
         'normal_density': gas.get_normal_density(),
         'standard_density': gas.get_standard_density()
@@ -217,3 +216,6 @@ def calc_valve_area_ppk(composition: dict, inlet_pressure: float, temperature: f
     return {
         'valve_area': valve_area
     }
+
+def calc_pipe_wall(diameter: int, wall: float, pressure: float, description: str ='undefined', length: float = 0):
+    pipe = Pipeline(diameter, wall, description, )

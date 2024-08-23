@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f607f56e-4ff3-4da4-83f7-2cd0ed8438d4" name="Changes" comment="1) Поменял декларативное описание интерфейса&#10;2) Сделал инверсию зависимости - теперь Window.py не зависит от Controller.py">
-      <change afterPath="$PROJECT_DIR$/core/view/window_config.yml" afterDir="false" />
+    <list default="true" id="f607f56e-4ff3-4da4-83f7-2cd0ed8438d4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/controller/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/controller/Controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/controller/util_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/controller/util_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/view/Window.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/view/Window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/model/entity/Gas.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/entity/Gas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/model/entity/Pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/entity/Pipeline.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/model/functions/physic_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/functions/physic_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/model/functions/variables.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/functions/variables.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,22 +39,22 @@
     &quot;assignee&quot;: &quot;AndrewDanie&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/AndrewDanie/NeVestaGRS.git",
-    "accountId": "334878a6-398f-4cb9-a8ad-0ecf2e47ae19"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AndrewDanie/NeVestaGRS.git&quot;,
+    &quot;accountId&quot;: &quot;ed38cc08-3701-4c6e-998c-82fb90dedef4&quot;
   },
-  "recentNewPullRequestHead": {
-    "server": {
-      "useHttp": false,
-      "host": "github.com",
-      "port": null,
-      "suffix": null
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
     },
-    "owner": "AndrewDanie",
-    "repository": "NeVestaGRS"
+    &quot;owner&quot;: &quot;AndrewDanie&quot;,
+    &quot;repository&quot;: &quot;NeVestaGRS&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -62,37 +64,49 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.PhysicFunctions (1).executor": "Run",
-    "Python.PhysicFunctions (2).executor": "Run",
-    "Python.PhysicFunctions.executor": "Run",
-    "Python.UtilFunctions.executor": "Run",
-    "Python.Window.executor": "Run",
-    "Python.grs_interface.executor": "Run",
-    "Python.grs_main.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.util_functions (1).executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "refactor",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/PetProjects/NeVestaGRS/core/view",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.PhysicFunctions (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.PhysicFunctions (2).executor&quot;: &quot;Run&quot;,
+    &quot;Python.PhysicFunctions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Window.executor&quot;: &quot;Run&quot;,
+    &quot;Python.grs_interface.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#1 on refactor&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Идель/PycharmProjects/NeVestaGRS&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\PetProjects\NeVestaGRS\core\view" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\PetProjects\NeVestaGRS\core\view" />
-      <recent name="D:\PetProjects\NeVestaGRS\core\controller" />
-      <recent name="D:\PetProjects\NeVestaGRS\core\model\functions" />
       <recent name="D:\PetProjects\NeVestaGRS\core\gui" />
       <recent name="D:\PetProjects\NeVestaGRS\core" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
+    <configuration name="PhysicFunctions (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="NeVestaGRS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test/functions" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/functions/PhysicFunctions.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="PhysicFunctions (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="NeVestaGRS" />
       <option name="ENV_FILES" value="" />
@@ -115,7 +129,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="grs_main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="PhysicFunctions" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="NeVestaGRS" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -124,11 +138,33 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/functions" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/grs_main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/functions/PhysicFunctions.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="grs_interface" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="NeVestaGRS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/gui" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/gui/grs_interface.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -159,64 +195,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="util_functions (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="NeVestaGRS" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/controller" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/controller/util_functions.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="util_functions" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="NeVestaGRS" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/controller" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="D:\PetProjects\NeVestaGRS\core\controller\util_functions.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Python.util_functions (1)" />
       <item itemvalue="Python.PhysicFunctions (2)" />
-      <item itemvalue="Python.grs_main" />
-      <item itemvalue="Python.util_functions" />
+      <item itemvalue="Python.PhysicFunctions (1)" />
+      <item itemvalue="Python.grs_interface" />
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.PhysicFunctions" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.util_functions (1)" />
-        <item itemvalue="Python.util_functions" />
         <item itemvalue="Python.PhysicFunctions (2)" />
-        <item itemvalue="Python.grs_main" />
+        <item itemvalue="Python.PhysicFunctions (1)" />
+        <item itemvalue="Python.PhysicFunctions" />
+        <item itemvalue="Python.grs_interface" />
       </list>
     </recent_temporary>
   </component>
@@ -236,23 +228,6 @@
       <option name="presentableId" value="Default" />
       <updated>1723550601327</updated>
     </task>
-    <task id="LOCAL-00001" summary="Bind last functions">
-      <option name="closed" value="true" />
-      <created>1724256682960</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1724256682960</updated>
-    </task>
-    <task id="LOCAL-00002" summary="1) Поменял декларативное описание интерфейса&#10;2) Сделал инверсию зависимости - теперь Window.py не зависит от Controller.py">
-      <option name="closed" value="true" />
-      <created>1724281981446</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1724281981446</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -265,10 +240,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Bind last functions" />
-    <MESSAGE value="1) Поменял декларативное описание интерфейса&#10;2) Сделал инверсию зависимости - теперь Window.py не зависит от Controller.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="1) Поменял декларативное описание интерфейса&#10;2) Сделал инверсию зависимости - теперь Window.py не зависит от Controller.py" />
   </component>
 </project>
