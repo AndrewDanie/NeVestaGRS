@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter.scrolledtext import ScrolledText
 
 from core.model.functions.variables import cache_variable_dict
+from core.model.repository import callback
 
 
 class Window:
@@ -86,7 +87,7 @@ class Window:
             lbl_text = combobox_name[2:] if combobox_name[:2] == '__' else cache_variable_dict[combobox_name]
             Label(frame, text=lbl_text, font=('Arial Bold', 10)).pack(side=LEFT)
             combo = ttk.Combobox(frame, name=combobox_name)
-            combo['values'] = values
+            combo['values'] = callback.get_grs_name_set()
             combo.current(0)
             combo.pack(side=LEFT)
 

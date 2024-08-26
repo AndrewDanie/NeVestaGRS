@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f607f56e-4ff3-4da4-83f7-2cd0ed8438d4" name="Changes" comment="">
+    <list default="true" id="f607f56e-4ff3-4da4-83f7-2cd0ed8438d4" name="Changes" comment="Removed GRSWindow class">
+      <change afterPath="$PROJECT_DIR$/core/model/repository/ORMModels.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/model/repository/callback.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_08_2024_9_07_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_08_2024_9_07__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/controller/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/controller/Controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/controller/util_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/controller/util_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/model/entity/Gas.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/entity/Gas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/model/entity/Pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/entity/Pipeline.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/model/functions/physic_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/functions/physic_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/model/functions/variables.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/functions/variables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/grs_database.db" beforeDir="false" afterPath="$PROJECT_DIR$/core/grs_database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/view/Window.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/view/Window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/view/window_config.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -39,10 +41,13 @@
     &quot;assignee&quot;: &quot;AndrewDanie&quot;
   }
 }</component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="4b0fb413-7d43-4307-a727-dd18bd93e6c4" />
+  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/AndrewDanie/NeVestaGRS.git&quot;,
-    &quot;accountId&quot;: &quot;ed38cc08-3701-4c6e-998c-82fb90dedef4&quot;
+    &quot;accountId&quot;: &quot;4b0fb413-7d43-4307-a727-dd18bd93e6c4&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -64,28 +69,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.PhysicFunctions (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.PhysicFunctions (2).executor&quot;: &quot;Run&quot;,
-    &quot;Python.PhysicFunctions.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Window.executor&quot;: &quot;Run&quot;,
-    &quot;Python.grs_interface.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;#1 on refactor&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Идель/PycharmProjects/NeVestaGRS&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.GRS.executor": "Run",
+    "Python.ORMModels (1).executor": "Run",
+    "Python.ORMModels.executor": "Run",
+    "Python.PhysicFunctions (1).executor": "Run",
+    "Python.PhysicFunctions.executor": "Run",
+    "Python.PipeVelocityController.executor": "Run",
+    "Python.UtilFunctions.executor": "Run",
+    "Python.ValveSpeedController.executor": "Run",
+    "Python.Window.executor": "Run",
+    "Python.grs_interface.executor": "Run",
+    "Python.grs_main.executor": "Run",
+    "Python.main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "refactor",
+    "last_opened_file_path": "C:/Users/Идель/PycharmProjects/NeVestaGRS",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\PetProjects\NeVestaGRS\core\gui" />
-      <recent name="D:\PetProjects\NeVestaGRS\core" />
+      <recent name="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\model" />
+      <recent name="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\controller" />
+      <recent name="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\model\functions" />
+      <recent name="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\model\entity" />
+      <recent name="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\view" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration name="PhysicFunctions (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="ORMModels (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="NeVestaGRS" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -94,11 +108,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test/functions" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/model/repository" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/functions/PhysicFunctions.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/model/repository/ORMModels.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -107,7 +121,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="PhysicFunctions (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="ORMModels" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="NeVestaGRS" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -116,11 +130,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/functions" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/model/repository" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/functions/PhysicFunctions.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\model\repository\ORMModels.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -129,7 +143,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="PhysicFunctions" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="UtilFunctions" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="NeVestaGRS" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -138,11 +152,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/functions" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/model/functions" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/functions/PhysicFunctions.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\controller\UtilFunctions.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -151,7 +165,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="grs_interface" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="grs_main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="NeVestaGRS" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -160,11 +174,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/gui" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/gui/grs_interface.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/grs_main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -196,19 +210,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.PhysicFunctions (2)" />
-      <item itemvalue="Python.PhysicFunctions (1)" />
-      <item itemvalue="Python.grs_interface" />
+      <item itemvalue="Python.ORMModels (1)" />
+      <item itemvalue="Python.ORMModels" />
+      <item itemvalue="Python.UtilFunctions" />
+      <item itemvalue="Python.grs_main" />
       <item itemvalue="Python.main" />
-      <item itemvalue="Python.PhysicFunctions" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.PhysicFunctions (2)" />
-        <item itemvalue="Python.PhysicFunctions (1)" />
-        <item itemvalue="Python.PhysicFunctions" />
-        <item itemvalue="Python.grs_interface" />
+        <item itemvalue="Python.ORMModels (1)" />
+        <item itemvalue="Python.ORMModels" />
+        <item itemvalue="Python.grs_main" />
+        <item itemvalue="Python.UtilFunctions" />
       </list>
     </recent_temporary>
   </component>
@@ -228,6 +242,23 @@
       <option name="presentableId" value="Default" />
       <updated>1723550601327</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added controller package&#10;Added test package&#10;Added controllers for pipe velocity calculations&#10;Added constants.py for constant value source">
+      <option name="closed" value="true" />
+      <created>1723922418912</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1723922418912</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Fixed lambda function binding&#10;Binded all physic functions to buttons&#10;Binded clear field button&#10;Make declarative descriptions of default GUI">
+      <option name="closed" value="true" />
+      <created>1724177806496</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1724177806496</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -240,5 +271,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added controller package&#10;Added test package&#10;Added controllers for pipe velocity calculations&#10;Added constants.py for constant value source" />
+    <MESSAGE value="Fixed lambda function binding&#10;Binded all physic functions to buttons&#10;Binded clear field button&#10;Make declarative descriptions of default GUI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed lambda function binding&#10;Binded all physic functions to buttons&#10;Binded clear field button&#10;Make declarative descriptions of default GUI" />
   </component>
 </project>

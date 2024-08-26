@@ -1,7 +1,9 @@
+from gc import callbacks
 from tkinter.constants import INSERT
 
 from core.model.functions.variables import cache_variable_dict
 from core.controller.util_functions import *
+from core.model.repository import callback
 from core.view.Window import Window
 
 
@@ -15,19 +17,6 @@ class Controller:
 
     def __init__(self, window: Window):
         self.window = window
-        self.composition = {
-            'Methane': 0.9197,
-            'Ethane': 0.0446,
-            'Propane': 0.0192,
-            'Isobutane': 0.0052,
-            'Butane': 0.0043,
-            'Isopentane': 0.0013,
-            'Pentane': 0.0007,
-            'Hexane': 0.0007,
-            'Oxygen': 0.0020,
-            'Nitrogen': 0.002,
-            'CarbonDioxide': 0.0002,
-        }
         self.properties = parse_yaml('view\\window_config.yml')
 
     def run_application(self):
@@ -68,7 +57,8 @@ class Controller:
         kwargs = dict()
         for param_name in func_parameters:
             if param_name == 'composition':
-                kwargs[param_name] = self.composition
+                grs_name = self.get_input(param_name)
+                kwargs[param_name] = callback.get_composition_set_by_grs_name(grs_name)
             else:
                 str_value = self.get_input(param_name)
                 str_value = validate_input_string(str_value)
