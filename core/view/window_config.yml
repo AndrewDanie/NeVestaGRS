@@ -1,3 +1,6 @@
+Главное меню:
+    gui_template: main_menu
+
 Расчет скорости в трубопроводах:
     gui_template: default_calculator
     widgets:
@@ -93,6 +96,7 @@
 
 Схема: null
 
-Статистика: null
+Статистика:
+  gui_template: plot
 
 База данных ГРС: null

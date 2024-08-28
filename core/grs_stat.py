@@ -2,6 +2,7 @@ import pandas as pd
 import sqlite3
 import openpyxl as oxl
 import matplotlib.pyplot as plt
+
 from tkinter import *
 from tkinter import scrolledtext
 from tkinter.ttk import Combobox
