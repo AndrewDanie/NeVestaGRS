@@ -12,21 +12,24 @@ from core.view.IView import IView
 
 class Window(IView):
 
-    def __init__(self, title, size='800x600', ):
-        self.root = Tk()
-        self.title = self.root.title(title)
-        self.geometry = self.root.geometry(size)
-        self.widgets = {
+    EMPTY_WIDGET_LIST = {
             'input': {},
             'button': {},
             'output': {},
             'plot': {},
         }
 
+    def __init__(self, title, size='800x600', ):
+        self.root = Tk()
+        self.title = self.root.title(title)
+        self.geometry = self.root.geometry(size)
+        self.widgets = Window.EMPTY_WIDGET_LIST
+
     def mainloop(self):
         self.root.mainloop()
 
     def clear_window(self):
+        self.widgets = Window.EMPTY_WIDGET_LIST
         for slave in self.root.winfo_children():
             slave.destroy()
 

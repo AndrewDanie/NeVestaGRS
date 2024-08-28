@@ -12,7 +12,6 @@ class TkAppContext:
     def __init__(self):
         self.app_properties = parse_yaml('properties.yml')
         self.window_config = parse_yaml('view\\window_config.yml')
-        print(self.app_properties)
         self.window = Window(self.app_properties['application_name'])
         self.builder = TkGuiBuilder(self.window)
         self.controller = Controller(self.window)
