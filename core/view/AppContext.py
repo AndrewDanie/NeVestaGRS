@@ -74,16 +74,29 @@ class TkAppContext:
                     button.bind('<Button-1>', callback)
 
         elif template == 'plot':
+
+            def draw_plot():
+                df = getattr(clbk, 'get_statistic_data_by_outlet_name')(self.window.widgets['input']['outlet'].widget.get())
+                if df is not None:
+                    ax = self.window.widgets['plot']['plot']
+                    ax.cla()
+                    y_axis = self.window.widgets['input']['quantity'].widget.get()
+                    df.plot(x='date', y=y_axis, ax=ax)
+                    canvas = self.window.widgets['plot']['canvas']
+                    canvas.draw()
+
             self.builder.build_plot_window(screen_config)
             back_to_menu_button = self.window.widgets['button']['__to_main_menu__']
             back_to_menu_button.bind('<Button-1>', lambda e: self.run_app())
 
             widget_config = screen_config['widgets']
+            q_combo = self.window.widgets['input']['quantity'].widget
+            q_combo['values'] = ['day_capacity', 'hour_capacity', 'pressure', 'temperature', 'actual_flow']
+            q_combo.current(0)
 
             if 'combobox' in widget_config:
                 combobox_config = widget_config['combobox']
                 grs_combo = None
-                print(combobox_config)
                 for name in combobox_config:
                     combobox = self.window.widgets['input'][name]
                     combobox.label.configure(text=name)
@@ -100,16 +113,18 @@ class TkAppContext:
                             if len(outlets) > 0:
                                 c_combo['values'] = outlets
                                 c_combo.current(0)
+                                draw_plot()
                             else:
                                 c_combo['values'] = []
                                 c_combo.set('')
 
                         assign_cbox(grs_combo.get())
                         grs_combo.bind("<<ComboboxSelected>>", lambda e: assign_cbox(grs_combo.get()))
+                        c_combo.bind("<<ComboboxSelected>>", lambda e: draw_plot())
 
                     elif name == 'quantity':
-                        combo['values'] = ['day_capacity', 'hour_capacity', 'pressure', 'temperature', 'actual_flow']
-                        combo.current(0)
+                        combo.bind("<<ComboboxSelected>>", lambda e: draw_plot())
+
 
             if 'button' in widget_config:
                 buttons = widget_config['button']
@@ -118,17 +133,9 @@ class TkAppContext:
                     button.configure(text=name)
                     callback = None
                     if name[:2] != '__':
-                        def draw_plot():
-                            df = getattr(clbk, name)(self.window.widgets['input']['outlet'].widget.get())
-                            if df is not None:
-                                ax = self.window.widgets['plot']['plot']
-                                ax.cla()
-                                y_axis = self.window.widgets['input']['quantity'].widget.get()
-                                df.plot(x='date', y=y_axis, ax=ax)
-                                canvas = self.window.widgets['plot']['canvas']
-                                canvas.draw()
                         callback = lambda e: draw_plot()
                     button.bind('<Button-1>', callback)
+            draw_plot()
 
     def get_window(self):
         return self.window

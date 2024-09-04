@@ -51,5 +51,4 @@ def get_outlet_set_by_grs_name(name):
 def get_statistic_data_by_outlet_name(name):
     statement = select(GRSState).where(GRSState.name_output.in_([name]))
     df = pd.read_sql(statement, Base.session.bind)
-    print(df)
     return df

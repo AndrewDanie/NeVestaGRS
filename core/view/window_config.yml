@@ -103,8 +103,6 @@
             composition : get_grs_name_set
             outlet : get_outlet_set_by_grs_name
             quantity : custom
-        button:
-          - get_statistic_data_by_outlet_name
 
 
 

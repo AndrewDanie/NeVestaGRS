@@ -4,24 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f607f56e-4ff3-4da4-83f7-2cd0ed8438d4" name="Changes" comment="Fixed:&#10;Очищение Window.widgets при смене окна">
-      <change afterPath="$PROJECT_DIR$/core/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_08_2024_18_08_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_08_2024_18_08__Changes_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_08_2024_9_13_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_08_2024_9_13__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_08_2024_0_10_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_08_2024_0_10__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2024_9_08_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2024_9_08__Changes_.xml" beforeDir="false" />
+    <list default="true" id="f607f56e-4ff3-4da4-83f7-2cd0ed8438d4" name="Changes" comment="- Удалил файл настроек физических величин, перевел инфу в базу&#10;- Добавил функциональность в окно статистики">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/controller/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/controller/Controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/grs_database.db" beforeDir="false" afterPath="$PROJECT_DIR$/core/grs_database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/model/functions/variables.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/model/repository/ORMModels.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/repository/Model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/model/repository/callback.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/repository/callback.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/view/AppContext.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/view/AppContext.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/view/TkWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/view/TkWindow.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/view/window_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/core/view/window_config.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -316,7 +301,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724863563731</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="- Удалил файл настроек физических величин, перевел инфу в базу&#10;- Добавил функциональность в окно статистики">
+      <option name="closed" value="true" />
+      <created>1725408554208</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1725408554208</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -337,6 +330,7 @@
     <MESSAGE value="Переработал модуль View:&#10;- Внедрил IoC и добавил класс TkAppContext, осуществляющий DI между вьюхой и логикой&#10;- Добавил класс TkGuiBuilder, взявший на себя функции создания объектов Tkinter'а&#10;- Добавил интерфейсы вьюхи IInput, IOutput, IView. Теперь Controller обращается только к этим интерфейсам вместо прямого обращению к Window&#10;- Упростил доступ к виджетам через хэшмап виджетов Window.widgets" />
     <MESSAGE value="Переработал модуль View:&#10;- Внедрил IoC и добавил класс TkAppContext, осуществляющий DI между вьюхой и логикой&#10;- Добавил класс TkGuiBuilder, взявший на себя функции создания объектов Tkinter'а&#10;- Добавил интерфейсы вьюхи IInput, IOutput, IView. Теперь Controller обращается только к этим интерфейсам вместо прямого обращению к Window&#10;- Упростил доступ к виджетам через хэшмап виджетов Window.widgets" />
     <MESSAGE value="Fixed:&#10;Очищение Window.widgets при смене окна" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed:&#10;Очищение Window.widgets при смене окна" />
+    <MESSAGE value="- Удалил файл настроек физических величин, перевел инфу в базу&#10;- Добавил функциональность в окно статистики" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Удалил файл настроек физических величин, перевел инфу в базу&#10;- Добавил функциональность в окно статистики" />
   </component>
 </project>
