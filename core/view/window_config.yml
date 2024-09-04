@@ -5,7 +5,7 @@
     gui_template: default_calculator
     widgets:
         combobox:
-          - composition
+            composition : get_grs_name_set
         entry:
           - pressure
           - temperature
@@ -31,7 +31,7 @@
     gui_template: default_calculator
     widgets:
         combobox:
-          - composition
+            composition : get_grs_name_set
         entry:
           - kv
           - inlet_pressure
@@ -47,7 +47,7 @@
     gui_template: default_calculator
     widgets:
         combobox:
-          - composition
+          - composition : get_grs_name_set
         entry:
           - rate
           - __Давление на входе ГРС, МПа
@@ -61,7 +61,7 @@
     gui_template: default_calculator
     widgets:
         combobox:
-          - composition
+            composition : get_grs_name_set
         entry:
           - inlet_pressure
           - temperature
@@ -76,7 +76,7 @@
     gui_template: default_calculator
     widgets:
         combobox:
-          - composition
+            composition : get_grs_name_set
         entry:
           - __Минимальное давление
           - __Максимальное давление
@@ -97,6 +97,15 @@
 Схема: null
 
 Статистика:
-  gui_template: plot
+    gui_template: plot
+    widgets:
+        combobox:
+            composition : get_grs_name_set
+            outlet : get_outlet_set_by_grs_name
+            quantity : custom
+        button:
+          - get_statistic_data_by_outlet_name
+
+
 
 База данных ГРС: null

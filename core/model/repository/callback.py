@@ -1,14 +1,20 @@
-
-from model.repository.ORMModels import *
+import pandas as pd
+from core.model.repository.Model import *
 
 
 def get_grs_name_set():
+    """
+    Возвращает список ГРС
+    """
     statement = select(GRS.name)
     name_set = Base.session.scalars(statement).fetchall()
     return name_set
 
 
 def get_composition_set_by_grs_name(name):
+    """
+    Возвращает газовый состав по имени ГРС
+    """
     statement = select(Composition).where(Composition.grs_id.in_(
         Base.session.query(GRS.id).filter(GRS.name.in_([name])).subquery()
     ))
@@ -27,5 +33,23 @@ def get_composition_set_by_grs_name(name):
         'Nitrogen': comp_obj.nitrogen,
         'CarbonDioxide': comp_obj.carbon_dioxide,
     }
-    print(composition_set)
     return composition_set
+
+
+def get_outlet_set_by_grs_name(name):
+    """
+    Возвращает список выходов по имени ГРС
+    """
+    statement = select(GRSState.name_output).where(GRSState.grs_id.in_(
+        Base.session.query(GRS.id).filter(GRS.name.in_([name])).subquery()
+    )).distinct()
+    outlet_set = Base.session.execute(statement).fetchall()
+    outlet_set = [x[0] for x in outlet_set]
+    return outlet_set
+
+
+def get_statistic_data_by_outlet_name(name):
+    statement = select(GRSState).where(GRSState.name_output.in_([name]))
+    df = pd.read_sql(statement, Base.session.bind)
+    print(df)
+    return df

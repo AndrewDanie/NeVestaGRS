@@ -16,6 +16,9 @@ class Controller:
             if param_name == 'composition':
                 grs_name = self.view.get_data(f'input.{param_name}')
                 kwargs[param_name] = callback.get_composition_set_by_grs_name(grs_name)
+            elif param_name == 'outlet':
+                grs_name = self.view.get_data(f'input.composition')
+                kwargs[param_name] = callback.get_outlet_set_by_grs_name(grs_name)
             else:
                 str_value = self.view.get_data(f'input.{param_name}')
                 str_value = validate_input_string(str_value)

@@ -4,20 +4,28 @@ from tkinter.scrolledtext import ScrolledText
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib import pyplot as plt
 
-
-from core.model.functions.variables import cache_variable_dict
-from core.model.repository import callback
 from core.view.IView import IView
+
+
+class LabeledWidget:
+
+    def __init__(self, interactive_widget, label_widget=None):
+        self.widget = interactive_widget
+        self.label = label_widget
+
+    def set_label(self, text):
+        if self.label is not None:
+            self.label.configure(text=text)
 
 
 class Window(IView):
 
     EMPTY_WIDGET_LIST = {
-            'input': {},
-            'button': {},
-            'output': {},
-            'plot': {},
-        }
+        'input': {},
+        'button': {},
+        'output': {},
+        'plot': {},
+    }
 
     def __init__(self, title, size='800x600', ):
         self.root = Tk()
@@ -28,7 +36,7 @@ class Window(IView):
     def mainloop(self):
         self.root.mainloop()
 
-    def clear_window(self):
+    def clear_screen(self):
         self.widgets = Window.EMPTY_WIDGET_LIST
         for slave in self.root.winfo_children():
             slave.destroy()
@@ -59,11 +67,11 @@ class Window(IView):
         widget = self.get_widget(parameter_path)
         widget.configure(state='normal')
         for name in output_entity:
-            widget.insert(INSERT, cache_variable_dict[name] + ' = ' + str(output_entity[name]) + '\n')
+            widget.insert(INSERT, name + ' = ' + str(output_entity[name]) + '\n')
         widget.configure(state='disable')
 
 
-class TkGuiBuilder:
+class TkScreenBuilder:
     """
     Строитель графического интерфейса
     Единственный класс, который должен иметь доступ к созданию объектов Tkinter'а
@@ -79,12 +87,12 @@ class TkGuiBuilder:
         self.widgets = window.widgets
 
     def make_default_frames(self, label):
-        Label(self.root, text=label, font=('Arial Bold', 18)).pack(pady=15)
+        lbl = Label(self.root, text=label, font=('Arial Bold', 18))
+        lbl.pack(pady=15)
         main_menu_button = Button(self.root,
                name='to_main_menu_button',
                text='Главное меню', font=("Arial Bold", 10))
         main_menu_button.place(anchor=NE, relx=1, x=-15, y=15)
-        self.widgets['button']['__to_main_menu__'] = main_menu_button
         left_frame = ttk.Frame(master=self.root,
                                name='left_frame',
                                borderwidth=1, relief=SOLID, padding=[8, 10])
@@ -93,6 +101,7 @@ class TkGuiBuilder:
                                 name='right_frame',
                                 borderwidth=1, relief=SOLID, padding=[8, 10])
         right_frame.place(relheight=1, relwidth=0.3, rely=0.1, relx=0.7)
+        self.widgets['button']['__to_main_menu__'] = main_menu_button
 
     def add_output_block(self, master_widget, pack_side=TOP):
         """
@@ -101,7 +110,7 @@ class TkGuiBuilder:
         output_txt_field = ScrolledText(master_widget,
                                   height=20, state='disabled')
         output_txt_field.pack(fill=X, side=pack_side)
-        self.widgets['output']['__txt_field__'] = output_txt_field
+        self.widgets['output']['__txt_field__'] = LabeledWidget(output_txt_field)
         Button(master_widget,
                text='Очистить окно вывода',
                font=("Arial Bold", 10),
@@ -115,12 +124,13 @@ class TkGuiBuilder:
             frame = ttk.Frame(master_widget,
                               borderwidth=1, padding=[4, 5])
             frame.pack(fill=X, side=pack_side)
-            lbl_text = label[2:] if label[:2] == '__' else cache_variable_dict[label]
-            Label(frame, text=lbl_text, font=('Arial Bold', 10)).pack(side=LEFT)
+            lbl_text = label
+            lbl = Label(frame, text=lbl_text, font=('Arial Bold', 10))
+            lbl.pack(side=LEFT)
             entry = Entry(master=frame,
                           width=10, justify='center')
             entry.pack(side=LEFT)
-            self.widgets['input'][label] = entry
+            self.widgets['input'][label] = LabeledWidget(entry, lbl)
 
     def add_buttons_block(self, master_widget, button_data, pack_side=TOP):
         """
@@ -130,29 +140,24 @@ class TkGuiBuilder:
             frame = ttk.Frame(master=master_widget,
                               borderwidth=1, padding=[4, 5])
             frame.pack(fill=X, side=pack_side)
-            lbl_text = label
-            button = Button(master=frame,
-                text=lbl_text,
-                font=("Arial Bold", 10),
-            )
+            button = Button(master=frame, font=("Arial Bold", 10))
             button.pack(side=LEFT)
             self.widgets['button'][label] = button
 
-    def add_combobox(self, master_widget, combobox_data, values, pack_side=TOP):
+    def add_combobox_block(self, master_widget, combobox_config, pack_side=TOP):
         """
         Добавляет блок ввода, состоящий из комбобоксов
         """
-        for label in combobox_data:
+        for label in combobox_config:
             frame = ttk.Frame(master=master_widget,
                               borderwidth=1, padding=[8, 10])
             frame.pack(fill=X, side=pack_side)
-            lbl_text = label[2:] if label[:2] == '__' else cache_variable_dict[label]
-            Label(frame, text=lbl_text, font=('Arial Bold', 10)).pack(side=LEFT)
+            lbl_text = label
+            lbl = Label(frame, text=lbl_text, font=('Arial Bold', 10))
+            lbl.pack(side=LEFT)
             combo = ttk.Combobox(frame, name=label)
-            combo['values'] = callback.get_grs_name_set()
-            combo.current(0)
             combo.pack(side=LEFT)
-            self.widgets['input'][label] = combo
+            self.widgets['input'][label] = LabeledWidget(combo, lbl)
 
     def add_empty_space(self, master_widget, amount=30, pack_side=TOP):
         """
@@ -171,48 +176,56 @@ class TkGuiBuilder:
         plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1)
         plot1 = fig.add_subplot(111)
 
-        plot1.plot(y)
+        # plot1.plot(y)
         canvas = FigureCanvasTkAgg(fig, master=master_widget)
+        # plt.show()
         canvas.draw()
         canvas.get_tk_widget().pack()
-        self.widgets['plot']['__example__'] = canvas
+        self.widgets['plot']['plot'] = plot1
+        self.widgets['plot']['canvas'] = canvas
 
-    def build_default_calculator(self, window_name, window_data):
-        self.window.clear_window()
+    def build_default_calculator(self, window_name, screen_config):
+        self.window.clear_screen()
         self.make_default_frames(window_name)
         right_frame = self.root.nametowidget("right_frame")
         left_frame = self.root.nametowidget("left_frame")
         self.add_output_block(left_frame)
-        widgets = window_data['widgets']
+        widgets = screen_config['widgets']
         if 'combobox' in widgets:
-            self.add_combobox(right_frame, widgets['combobox'], [1, 2, 3])
+            self.add_combobox_block(right_frame, widgets['combobox'])
         if 'entry' in widgets:
             self.add_input_block(right_frame, widgets['entry'])
         self.add_empty_space(right_frame, pack_side=BOTTOM)
         if 'button' in widgets:
             self.add_buttons_block(right_frame, widgets['button'],pack_side=BOTTOM)
 
-    def build_main_menu(self, window_config):
-        self.window.clear_window()
+    def build_main_menu(self, screen_config):
+        self.window.clear_screen()
         Label(self.root, text='НеВеста-ГРС', font=('Arial Bold', 18)).place(relx=0.5, anchor=N, y=30)
         central_frame = ttk.Frame(self.root, borderwidth=1, padding=[4, 5])
         central_frame.pack(expand=True, anchor=CENTER)
         i = 0
         self.button_list = []
-        for window_name in window_config:
-            if window_name == 'Главное меню':
+        for screen_name in screen_config:
+            if screen_name == 'Главное меню':
                 continue
             frame = ttk.Frame(central_frame, borderwidth=1, padding=[4, 5])
             frame.grid(row=i // 2, column=i % 2)
-            button = Button(frame, text=window_name, font=("Arial Bold", 10), width=30)
+            button = Button(frame, text=screen_name, font=("Arial Bold", 10), width=30)
             button.pack()
             self.button_list.append(button)
             i += 1
 
-    def build_plot_window(self):
-        self.window.clear_window()
+    def build_plot_window(self, screen_config):
+        self.window.clear_screen()
         self.make_default_frames('Статистика')
-        for i in range(4):
+        right_frame = self.root.nametowidget("right_frame")
+        widgets = screen_config['widgets']
+        self.add_combobox_block(right_frame, widgets['combobox'])
+        for i in range(1):
             frame = ttk.Frame(self.root.nametowidget("left_frame"), borderwidth=1, padding=[4, 5])
             frame.grid(row=i // 2, column=i % 2)
             self.add_plot_example(frame)
+        self.add_empty_space(right_frame, pack_side=BOTTOM)
+        if 'button' in widgets:
+            self.add_buttons_block(right_frame, widgets['button'], pack_side=BOTTOM)
