@@ -1,0 +1,51 @@
+#  Файл с декларативным описанием интерфейса, основанный на возможностях и функциях класса TkAppBuilder
+#  Здесь описываются основные шаблоны экранов графического интерфейса
+#
+#  $block и $grid - специальные ключи, показывающие, что в этих местах будут располагаться настраиваемые элементы,
+#    взаимодействующие с логикой приложения
+#  Такие блоки должны иметь шаблон:
+#    $block.{тип виджета}.{id блока}
+#    $grid.{тип виджета}.{id блока}
+#  При наличии только одного блока на тип, id блока можно не указывать
+
+menu:
+  frames: one
+  one_frame:
+    label:
+      text: 'НеВеста-ГРС'
+      place:
+        relx: 0.5
+        anchor: n
+        y: 50
+    $grid.button:
+      anchor: center
+
+calculator:
+  frames: default
+  up_frame: default_top
+  left_frame:
+    - $block.output
+  right_frame:
+    - $block.combobox
+    - $block.entry
+    - space:
+        pack_side: bottom
+        size: 30
+    - $block.button:
+        pack_side: bottom
+
+statistic:
+  frames: default
+  up_frame: default_top
+  left_frame:
+    - $block.plot
+  right_frame:
+    - $block.combobox
+    - $block.entry
+    - space:
+        pack_side: bottom
+        size: 30
+    - $block.button:
+        pack_side: bottom
+
+

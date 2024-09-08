@@ -4,10 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f607f56e-4ff3-4da4-83f7-2cd0ed8438d4" name="Changes" comment="- Удалил файл настроек физических величин, перевел инфу в базу&#10;- Добавил функциональность в окно статистики">
+    <list default="true" id="f607f56e-4ff3-4da4-83f7-2cd0ed8438d4" name="Changes" comment="- Добавил реактивность в окно статистики и убрал кнопку">
+      <change afterPath="$PROJECT_DIR$/core/util/ConfigCache.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/view/TkAppContext.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/view/binding_config.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/view/callback/meta.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/view/callback/window.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/view/template_config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_08_2024_19_43_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_08_2024_19_43__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/view/AppContext.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/view/AppContext.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/view/window_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/core/view/window_config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/controller/Controller.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/controller/util_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/util/util_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/grs_database.db" beforeDir="false" afterPath="$PROJECT_DIR$/core/grs_database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/model/entity/Pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/entity/Pipeline.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/model/entity/Vessel.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/entity/Vessel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/model/repository/Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/repository/Model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/model/repository/callback.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/view/callback/db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/model/repository/grs_database.db" beforeDir="false" afterPath="$PROJECT_DIR$/core/view/callback/logic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/core/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/view/AppContext.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/view/IView.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/view/IView.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/view/TkWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/view/TkWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/view/window_config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grs_database.db" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,61 +84,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.AppContext.executor": "Run",
-    "Python.GRS.executor": "Run",
-    "Python.Model (1).executor": "Run",
-    "Python.ORMModels (1).executor": "Run",
-    "Python.ORMModels.executor": "Run",
-    "Python.PhysicFunctions (1).executor": "Run",
-    "Python.PhysicFunctions.executor": "Run",
-    "Python.PipeVelocityController.executor": "Run",
-    "Python.UtilFunctions.executor": "Run",
-    "Python.ValveSpeedController.executor": "Run",
-    "Python.Window.executor": "Run",
-    "Python.callback.executor": "Run",
-    "Python.grs_interface.executor": "Run",
-    "Python.grs_main.executor": "Run",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "refactor",
-    "last_opened_file_path": "C:/Users/Идель/PycharmProjects/NeVestaGRS",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.AppContext.executor&quot;: &quot;Run&quot;,
+    &quot;Python.GRS.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Model (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.ORMModels (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.ORMModels.executor&quot;: &quot;Run&quot;,
+    &quot;Python.PhysicFunctions (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.PhysicFunctions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.PipeVelocityController.executor&quot;: &quot;Run&quot;,
+    &quot;Python.UtilFunctions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ValveSpeedController.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Window.executor&quot;: &quot;Run&quot;,
+    &quot;Python.callback.executor&quot;: &quot;Run&quot;,
+    &quot;Python.db (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.grs_interface.executor&quot;: &quot;Run&quot;,
+    &quot;Python.grs_main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;refactor&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Идель/PycharmProjects/NeVestaGRS&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;proofread&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\view\callback" />
+      <recent name="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\view" />
+      <recent name="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\context" />
       <recent name="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\model" />
       <recent name="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\controller" />
-      <recent name="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\model\functions" />
-      <recent name="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\model\entity" />
-      <recent name="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\view" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.callback">
-    <configuration name="AppContext" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="NeVestaGRS" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/view" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/view/AppContext.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.main">
     <configuration name="Model (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="NeVestaGRS" />
       <option name="ENV_FILES" value="" />
@@ -140,7 +142,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="TkAppContext" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="NeVestaGRS" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -149,11 +151,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/model/repository" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/view" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\model\repository\Model.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Андрей\PycharmProjects\NeVestaGRS\core\view\TkAppContext.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -162,7 +164,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ORMModels (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="db (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="NeVestaGRS" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -171,33 +173,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/model/repository" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/view/callback" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/model/repository/ORMModels.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="callback" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="NeVestaGRS" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/model/repository" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/model/repository/callback.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/view/callback/db.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -228,20 +208,42 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="NeVestaGRS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Python.AppContext" />
+      <item itemvalue="Python.db (1)" />
+      <item itemvalue="Python.test" />
+      <item itemvalue="Python.TkAppContext" />
       <item itemvalue="Python.Model (1)" />
-      <item itemvalue="Python.callback" />
-      <item itemvalue="Python.ORMModels (1)" />
       <item itemvalue="Python.main" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.callback" />
-        <item itemvalue="Python.AppContext" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.db (1)" />
         <item itemvalue="Python.Model (1)" />
-        <item itemvalue="Python.ORMModels (1)" />
+        <item itemvalue="Python.TkAppContext" />
       </list>
     </recent_temporary>
   </component>
@@ -309,7 +311,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725408554208</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="- Добавил реактивность в окно статистики и убрал кнопку">
+      <option name="closed" value="true" />
+      <created>1725409534139</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1725409534139</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -331,6 +341,7 @@
     <MESSAGE value="Переработал модуль View:&#10;- Внедрил IoC и добавил класс TkAppContext, осуществляющий DI между вьюхой и логикой&#10;- Добавил класс TkGuiBuilder, взявший на себя функции создания объектов Tkinter'а&#10;- Добавил интерфейсы вьюхи IInput, IOutput, IView. Теперь Controller обращается только к этим интерфейсам вместо прямого обращению к Window&#10;- Упростил доступ к виджетам через хэшмап виджетов Window.widgets" />
     <MESSAGE value="Fixed:&#10;Очищение Window.widgets при смене окна" />
     <MESSAGE value="- Удалил файл настроек физических величин, перевел инфу в базу&#10;- Добавил функциональность в окно статистики" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Удалил файл настроек физических величин, перевел инфу в базу&#10;- Добавил функциональность в окно статистики" />
+    <MESSAGE value="- Добавил реактивность в окно статистики и убрал кнопку" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Добавил реактивность в окно статистики и убрал кнопку" />
   </component>
 </project>

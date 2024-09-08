@@ -11,7 +11,7 @@ class Pipeline:
         self.area = math.pi / 4 * self.internal_diameter ** 2 / 1e6
 
     def pipe_pressure_drop(self):
-        return
+        pass
 
     def calc_wall(self, pressure: float, pipe_qualaity: str='K48'):
         """

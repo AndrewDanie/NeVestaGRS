@@ -10,11 +10,15 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 
 class Base(DeclarativeBase):
+
     engine = db.create_engine('sqlite:///grs_database.db')
     session = Session(engine)
 
 
 class Quantity(Base):
+    """
+    Настройки физических переменных
+    """
     __tablename__ = "quantity"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -22,6 +26,17 @@ class Quantity(Base):
     label_name: Mapped[str]
     unit: Mapped[str]
     convertion_order: Mapped[int]
+
+
+class Combobox(Base):
+    """
+    Настройки переменных комбобокса
+    """
+    __tablename__ = "combobox"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str]
+    values_getter: Mapped[str]
 
 
 class GRS(Base):
@@ -98,7 +113,7 @@ class GRSState(Base):
     actual_flow: Mapped[float]
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
     engine = db.create_engine('sqlite:///../../grs_database.db')
     Base.metadata.create_all(engine)
     conn = engine.connect()

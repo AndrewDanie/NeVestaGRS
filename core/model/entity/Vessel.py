@@ -9,7 +9,6 @@ class Vessel:
     def odorant_mass(self, volume):
         return round(0.85 * 830 * volume, 2)
 
-
     def odorant_rate(self, rate):
         return round(rate * 0.016 / 1000, 2)  # расход одоранта в час
 

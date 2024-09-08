@@ -1,4 +1,4 @@
-from core.view.AppContext import TkAppContext
+from core.view.TkAppContext import TkAppContext
 from tests.functions.PhysicFunctions import run_all_tests
 
 
