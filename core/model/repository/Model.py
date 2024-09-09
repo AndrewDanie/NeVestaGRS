@@ -97,19 +97,33 @@ class Composition(Base):
             )
 
 
-class GRSState(Base):
-    __tablename__ = 'grs_statistic'
+class GRSOutlet(Base):
+    __tablename__ = 'grs_outlet'
 
     id: Mapped[int] = mapped_column(primary_key=True)
     grs_id: Mapped["GRS"] = mapped_column(ForeignKey("grs.id"))
-
     name_output: Mapped[str]
+
+
+class GRSEntryStatistic(Base):
+    __tablename__ = 'grs_entry_statistic'
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    grs_id: Mapped["GRS"] = mapped_column(ForeignKey("grs.id"))
+    date: Mapped[datetime.datetime]
+    pressure: Mapped[float]
+    temperature: Mapped[float]
+
+
+class GRSOutletStatistic(Base):
+    __tablename__ = 'grs_outlet_statistic'
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    outlet_id: Mapped["GRSOutlet"] = mapped_column(ForeignKey("grs_outlet.id"))
     date: Mapped[datetime.datetime]
     nominal_capacity: Mapped[float]
     day_capacity: Mapped[float]
     hour_capacity: Mapped[float]
-    pressure: Mapped[float]
-    temperature: Mapped[float]
     actual_flow: Mapped[float]
 
 

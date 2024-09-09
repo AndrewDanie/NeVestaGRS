@@ -30,7 +30,7 @@ component_list_for_query = ['methane', 'ethane', 'propane', 'isobutane', 'butane
 def get_grs_name():
     connection = sqlite3.connect('grs_database.db')
     cur = connection.cursor()
-    cur.execute("""SELECT DISTINCT name_grs FROM grs""")
+    cur.execute("""SELECT DISTINCT name FROM grs""")
     grs_list = [grs[0] for grs in cur.fetchall()]
     connection.close()
     return grs_list
@@ -42,7 +42,7 @@ def get_composition(name_grs, normolize=True):
     component_list_query = ', '.join(component for component in component_list_for_query)
     cur.execute(f"""SELECT {component_list_query} FROM composition
                     WHERE grs_id = (SELECT grs_id FROM grs 
-                    WHERE name_grs = '{name_grs}');""")
+                    WHERE name = '{name_grs}');""")
     values = cur.fetchone()
     if normolize == True:
         while abs(sum(values) - 1) > 10e-10:
@@ -118,7 +118,7 @@ def record_data():
                     cur.execute(f"""INSERT INTO grs_stat(name_output, date, nominal_capacity, 
                     day_capacity, hour_capacity, pressure, temperature, grs_id)
                     VALUES(?, ?, ?, ?, ?, ?, ?,
-                    (SELECT grs_id FROM grs WHERE name_grs = '{grs_name}'));""",
+                    (SELECT grs_id FROM grs WHERE name = '{grs_name}'));""",
                                 (sheet, data[0], data[1], data[2], data[3], data[4], data[5]))
                 except IndexError:
                     pass
@@ -140,8 +140,8 @@ def record_data():
         cur = connection.cursor()
         grs_name = grs_cmb.get()
 
-        cur.execute(f"""SELECT hour_capacity, pressure, temperature, data_id FROM grs_stat 
-        WHERE grs_id = (SELECT grs_id FROM grs WHERE name_grs = '{grs_name}')""")
+        cur.execute(f"""SELECT hour_capacity, pressure, temperature, id FROM grs_statistic
+        WHERE grs_id = (SELECT grs_id FROM grs WHERE name = '{grs_name}')""")
         states = cur.fetchall()
         rates = [state[0] * 1000 for state in states]
         pressures = [state[1] * 98100 / 1000000 for state in states]
@@ -212,7 +212,8 @@ def make_stat_root():
                                          f"WHERE grs_id = ("
                                          f"SELECT grs_id "
                                          f"FROM grs "
-                                         f"WHERE name_grs = '{grs_name}');", connection)['Выход'])
+                                         f"WHERE name"
+                                         f" = '{grs_name}');", connection)['Выход'])
         if len(outputs_names) > 1:
             outputs_names.append('Вход')
         combo_outputs['values'] = outputs_names
@@ -229,7 +230,7 @@ def make_stat_root():
                 query = f"""SELECT date AS 'Дата', ROUND( pressure * 0.0981, 4) as '{parameters_list[0]}',
                  ROUND(SUM(hour_capacity)*1000, 0) AS '{parameters_list[1]}', temperature AS '{parameters_list[2]}', 
                  ROUND(SUM(actual_flow), 0) AS '{parameters_list[3]}' FROM grs_stat
-                                WHERE grs_id  = (SELECT grs_id FROM grs WHERE name_grs = '{name_grs}')
+                                WHERE grs_id  = (SELECT grs_id FROM grs WHERE name = '{name_grs}')
                                 GROUP BY date;"""
             else:
                 query = f"""SELECT date as 'Дата',
@@ -246,7 +247,7 @@ def make_stat_root():
                         WHERE (date LIKE '____-{months[3 * i - 1]}-__%' 
                         OR  date LIKE'____-{months[3 * i]}-__%' 
                         OR date LIKE '____-{months[3 * i + 1]}-__%') 
-                        AND (grs_id = (SELECT grs_id FROM grs WHERE name_grs = '{name_grs}'))
+                        AND (grs_id = (SELECT grs_id FROM grs WHERE name = '{name_grs}'))
                         GROUP BY date;
                         """
             else:
@@ -391,7 +392,7 @@ def make_stat_root():
     cur = connection.cursor()
 
     try:
-        cur.execute("""SELECT DISTINCT name_grs FROM grs WHERE grs_id IN (SELECT DISTINCT grs_id FROM grs_stat);""")
+        cur.execute("""SELECT DISTINCT name FROM grs WHERE grs_id IN (SELECT DISTINCT grs_id FROM grs_stat);""")
     except sqlite3.OperationalError:
         record_data()
         pass
@@ -431,7 +432,7 @@ def make_stat_root():
                                          f"WHERE grs_id = ("
                                          f"SELECT grs_id "
                                          f"FROM grs "
-                                         f"WHERE name_grs = '{grs_name}');", connection)['Выход'])
+                                         f"WHERE name = '{grs_name}');", connection)['Выход'])
         if len(outputs_names) > 1:
             outputs_names.append('Вход')
         """создали комбобокс с названиями выходов ГРС, указанной в комбобоксе имен ГРС"""

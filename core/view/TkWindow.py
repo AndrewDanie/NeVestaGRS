@@ -2,8 +2,11 @@ from copy import deepcopy
 from tkinter import *
 from tkinter import ttk
 from tkinter.scrolledtext import ScrolledText
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib import pyplot as plt
+import matplotlib
+from matplotlib.figure import Figure
+
 
 from core.util.ConfigCache import ConfigCache
 from core.view.callback import db
@@ -38,6 +41,7 @@ class Window(IView):
         self.geometry = self.root.geometry(size)
         self.widgets = None
         self.clear_screen()
+        matplotlib.use('TkAgg')
 
     def mainloop(self):
         self.root.mainloop()
@@ -168,6 +172,8 @@ class TkScreenBuilder:
                         # ----------- Убрать хардкод -------------
                         if label == 'quantity':
                             values = ['day_capacity', 'hour_capacity', 'pressure', 'temperature', 'actual_flow']
+                        elif label == 'season':
+                            values = ['Весь год', 'Зима', 'Весна', 'Лето', 'Осень']
                         # ----------------------------------------
                         else:
                             values = get_yaml_callback(callback_name)()
@@ -222,20 +228,21 @@ class TkScreenBuilder:
             self.add_grid(master_widget, block_config)
 
     def __make_default_screen(self, label):
+        height = 50
         lbl = Label(self.root, text=label, font=('Arial Bold', 18))
-        lbl.pack(pady=15)
+        lbl.pack(pady=10)
         main_menu_button = Button(self.root,
                name='to_main_menu_button',
                text='Главное меню', font=("Arial Bold", 10))
-        main_menu_button.place(anchor=NE, relx=1, x=-15, y=15)
+        main_menu_button.place(anchor=NE, relx=1, x=-15, y=10)
         left_frame = ttk.Frame(master=self.root,
                                name='left_frame',
                                borderwidth=1, relief=SOLID, padding=[8, 10])
-        left_frame.place(relheight=1, relwidth=0.7, rely=0.1)
+        left_frame.place(relheight=1, relwidth=0.7, y=height)
         right_frame = ttk.Frame(master=self.root,
                                 name='right_frame',
                                 borderwidth=1, relief=SOLID, padding=[8, 10])
-        right_frame.place(relheight=1, relwidth=0.3, rely=0.1, relx=0.7)
+        right_frame.place(relheight=1, relwidth=0.3, y=height, relx=0.7)
         self.window.widgets['button']['__to_main_menu__'] = main_menu_button
 
     def add_output_block(self, master_widget, block_config=None, pack_side=TOP):
@@ -307,21 +314,20 @@ class TkScreenBuilder:
 
     def add_plot_block(self, master_widget, block_config=None):
         """
-        Добавляет демонстрационный график mathplotlib'а
+        Добавляет график mathplotlib'а
         """
-        from matplotlib.figure import Figure
-
         fig = Figure(figsize=(5, 5), dpi=100)
-        y = [i ** 2 for i in range(101)]
-        plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1)
-        plot1 = fig.add_subplot(111)
-        # plot1.plot(y)
-        canvas = FigureCanvasTkAgg(fig, master=master_widget)
-        # plt.show()
-        canvas.draw()
-        canvas.get_tk_widget().pack()
-        self.window.widgets['plot']['plot'] = plot1
+        canvas = FigureCanvasTkAgg(fig, master_widget)
+        nav_frame = ttk.Frame(master_widget)
+        toolbar = NavigationToolbar2Tk(canvas, nav_frame)
+        fig.subplots_adjust(left=0.15, right=0.9, top=0.9, bottom=0.25)
+        axes = fig.add_subplot(111)
+        nav_frame.pack()
+        canvas.get_tk_widget().pack(fill=BOTH, expand=1)
+
+        self.window.widgets['plot']['plot'] = axes
         self.window.widgets['plot']['canvas'] = canvas
+        self.window.widgets['plot']['toolbar'] = toolbar
 
     def add_grid(self, master_widget, grid_config):
         i = 0

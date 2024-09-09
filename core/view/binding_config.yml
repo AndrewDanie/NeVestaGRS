@@ -163,5 +163,7 @@
         selected: $window.draw_plot
     - quantity:
         selected: $window.draw_plot
+    - season:
+        selected: $window.draw_plot
 
 База данных ГРС: null

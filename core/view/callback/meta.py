@@ -23,7 +23,6 @@ def get_yaml_callback(name):
     name = name[1:].split('.')
     callback_type = name[0]
     callback_name = name[1]
-    callback = None
     if callback_type == 'window':
         return getattr(window, callback_name)
     elif callback_type == 'db':
